@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1",
+  "description": "Reference change batch used by the MVP demo and by the test suite. In plain language: move the bathroom door 60 cm, mark the wall between bathroom and storage for demolition, and replace the living room door with a 1.60 m open passage.",
+  "operations": [
+    {
+      "op": "move_opening",
+      "target_id": "door_bath",
+      "offset_delta_mm": 600
+    },
+    {
+      "op": "set_state",
+      "target_id": "wall_bath_s",
+      "state": "demolish"
+    },
+    {
+      "op": "delete_opening",
+      "target_id": "door_living"
+    },
+    {
+      "op": "create_passage",
+      "id": "passage_living",
+      "host_wall_id": "wall_living_n",
+      "offset_mm": 1800,
+      "width_mm": 1600,
+      "height_mm": 2200,
+      "state": "new",
+      "provenance": "provided",
+      "source_id": "src_plan",
+      "name": "Neuer Durchgang zum Wohnzimmer"
+    }
+  ]
+}

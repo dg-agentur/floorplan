@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.1",
+  "unit": "mm",
+  "project": {
+    "id": "fixture_01",
+    "name": "Fixture 01 - Simple Room",
+    "description": "One rectangular room with four exterior walls, one door and two windows. Exercises the minimal valid document, wall corner mitring and opening hosting.",
+    "quality": "verified",
+    "defaults": {
+      "state": "existing",
+      "provenance": "measured",
+      "wall_height_mm": 2600
+    }
+  },
+  "sources": [
+    {
+      "id": "src_survey",
+      "kind": "survey",
+      "description": "Synthetic test data. Not a real building."
+    }
+  ],
+  "buildings": [
+    {
+      "id": "building_main",
+      "name": "Main building",
+      "levels": [
+        {
+          "id": "level_eg",
+          "name": "Ground floor",
+          "index": 0,
+          "elevation_mm": 0,
+          "height_mm": 2600,
+          "walls": [
+            {
+              "id": "wall_001",
+              "type": "wall",
+              "name": "South wall",
+              "start": { "x_mm": 0, "y_mm": 0 },
+              "end": { "x_mm": 4500, "y_mm": 0 },
+              "thickness_mm": 300,
+              "height_mm": 2600,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_002",
+              "type": "wall",
+              "name": "East wall",
+              "start": { "x_mm": 4500, "y_mm": 0 },
+              "end": { "x_mm": 4500, "y_mm": 3700 },
+              "thickness_mm": 300,
+              "height_mm": 2600,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_003",
+              "type": "wall",
+              "name": "North wall",
+              "start": { "x_mm": 4500, "y_mm": 3700 },
+              "end": { "x_mm": 0, "y_mm": 3700 },
+              "thickness_mm": 300,
+              "height_mm": 2600,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_004",
+              "type": "wall",
+              "name": "West wall",
+              "start": { "x_mm": 0, "y_mm": 3700 },
+              "end": { "x_mm": 0, "y_mm": 0 },
+              "thickness_mm": 300,
+              "height_mm": 2600,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            }
+          ],
+          "openings": [
+            {
+              "id": "door_001",
+              "type": "door",
+              "name": "Entrance",
+              "host_wall_id": "wall_001",
+              "offset_mm": 2250,
+              "width_mm": 1010,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "connects_space_ids": ["space_room"],
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            },
+            {
+              "id": "window_001",
+              "type": "window",
+              "host_wall_id": "wall_003",
+              "offset_mm": 1200,
+              "width_mm": 1200,
+              "height_mm": 1400,
+              "sill_mm": 900,
+              "window_type": "tilt_turn",
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            },
+            {
+              "id": "window_002",
+              "type": "window",
+              "host_wall_id": "wall_003",
+              "offset_mm": 3300,
+              "width_mm": 1200,
+              "height_mm": 1400,
+              "sill_mm": 900,
+              "window_type": "tilt_turn",
+              "state": "existing",
+              "provenance": "measured",
+              "verified": true,
+              "source_id": "src_survey"
+            }
+          ],
+          "spaces": [
+            {
+              "id": "space_room",
+              "type": "space",
+              "name": "Room",
+              "category": "living",
+              "boundary": [
+                { "x_mm": 150, "y_mm": 150 },
+                { "x_mm": 4350, "y_mm": 150 },
+                { "x_mm": 4350, "y_mm": 3550 },
+                { "x_mm": 150, "y_mm": 3550 }
+              ],
+              "height_mm": 2600,
+              "state": "existing",
+              "provenance": "derived",
+              "verified": true,
+              "source_id": "src_survey"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "revision": 0
+}

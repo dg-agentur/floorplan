@@ -1,0 +1,29 @@
+# --- Personenbezogene und projektspezifische Quelldaten --------------------------
+# Reale Grundrisse enthalten Bauherr, Planverfasser, Adressen und Flurstücksnummern.
+# Sie dienen ausschließlich dem lokalen Abgleich (siehe ROADMAP.md, Abschnitt
+# "Umgang mit realen Beispielplänen") und dürfen NICHT committet werden.
+Beispiele/
+beispiele/
+examples-private/
+*.private.floorplan.json
+*.private.observations.json
+*.private.pdf
+
+# --- Build-Artefakte -------------------------------------------------------------
+/dist/
+/out/
+/tmp/
+/.cache/
+
+# --- Abhängigkeiten (die Plattform selbst hat keine; das hier sind Dev-Werkzeuge) --
+node_modules/
+package-lock.json
+
+# --- Werkzeuge und Betriebssystem ------------------------------------------------
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+!.vscode/extensions.json

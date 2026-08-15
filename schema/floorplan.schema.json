@@ -1,0 +1,577 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://floorplan-platform.dev/schema/0.1/floorplan.schema.json",
+  "title": "Canonical Floorplan Document",
+  "description": "Deterministic, vendor-neutral floorplan model. All lengths are integer millimetres. Coordinate system: X right, Y up, origin arbitrary. See docs/object-model.md and docs/geometry-model.md.",
+  "type": "object",
+  "required": ["schema_version", "unit", "project", "buildings"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "description": "Version of the floorplan document format. MINOR increments are backwards compatible.",
+      "const": "0.1"
+    },
+    "unit": {
+      "description": "Unit of every *_mm field. Fixed to millimetres so that no consumer has to infer it.",
+      "const": "mm"
+    },
+    "project": { "$ref": "#/$defs/project" },
+    "sources": {
+      "description": "Provenance of the underlying material (photos, PDFs, surveys). Elements reference these via source_id.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "buildings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/building" }
+    },
+    "history": {
+      "description": "Applied operations in chronological order, including their inverse for undo.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/history_entry" }
+    },
+    "revision": {
+      "description": "Monotonic counter, incremented once per successful apply batch.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "meta": { "$ref": "#/$defs/meta" }
+  },
+
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$",
+      "description": "Document-wide unique, stable identifier. Convention: <type>_<discriminator>, e.g. wall_001, space_kitchen."
+    },
+    "id_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "meta": {
+      "description": "Free-form application specific data. Never interpreted by the core, never affects geometry.",
+      "type": "object"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 64 }
+    },
+    "length_mm": {
+      "description": "A non-negative length in whole millimetres.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "positive_length_mm": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "coordinate_mm": {
+      "description": "A coordinate in whole millimetres. May be negative.",
+      "type": "integer",
+      "minimum": -1000000000,
+      "maximum": 1000000000
+    },
+    "point": {
+      "type": "object",
+      "required": ["x_mm", "y_mm"],
+      "additionalProperties": false,
+      "properties": {
+        "x_mm": { "$ref": "#/$defs/coordinate_mm" },
+        "y_mm": { "$ref": "#/$defs/coordinate_mm" }
+      }
+    },
+    "polygon": {
+      "description": "Closed simple polygon. The closing edge is implicit; do not repeat the first point.",
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/point" }
+    },
+    "angle_deg": {
+      "type": "number",
+      "minimum": -360,
+      "maximum": 360
+    },
+
+    "state": {
+      "description": "Construction state. Enables existing/renovation planning within one model.",
+      "enum": ["existing", "planned", "new", "demolish", "unknown"]
+    },
+    "provenance": {
+      "description": "Where the numeric values of this element come from. See docs/provenance.md.",
+      "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "property_provenance": {
+      "description": "Per-property override of the element level provenance. Keys are property names of this element.",
+      "type": "object",
+      "patternProperties": {
+        "^[a-z][a-z0-9_]*$": {
+          "type": "object",
+          "required": ["provenance"],
+          "additionalProperties": false,
+          "properties": {
+            "provenance": { "$ref": "#/$defs/provenance" },
+            "confidence": { "$ref": "#/$defs/confidence" },
+            "verified": { "type": "boolean" },
+            "source_id": { "$ref": "#/$defs/id_ref" },
+            "note": { "type": "string", "maxLength": 500 }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "quality": {
+      "description": "Trust level of the document. Selects the validator severity policy. See docs/adr/0015-quality-levels.md.",
+      "enum": ["marketing", "scaled", "verified"]
+    },
+
+    "project": {
+      "type": "object",
+      "required": ["id", "name", "quality"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "client": { "type": "string", "maxLength": 200 },
+        "address": { "type": "string", "maxLength": 500 },
+        "quality": { "$ref": "#/$defs/quality" },
+        "defaults": { "$ref": "#/$defs/defaults" },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "defaults": {
+      "description": "Document wide fallbacks. Resolution order is always element -> defaults -> hard coded default.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "wall_height_mm": { "$ref": "#/$defs/positive_length_mm" }
+      }
+    },
+
+    "source": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "enum": ["image", "pdf", "scan", "drawing", "dxf", "ifc", "text", "survey", "manual", "other"]
+        },
+        "uri": { "type": "string", "maxLength": 1000 },
+        "page": { "type": "integer", "minimum": 1 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "captured_at": { "type": "string", "maxLength": 64 }
+      }
+    },
+
+    "building": {
+      "type": "object",
+      "required": ["id", "name", "levels"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "address": { "type": "string", "maxLength": 500 },
+        "levels": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/level" }
+        },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "level": {
+      "type": "object",
+      "required": ["id", "name", "index", "elevation_mm"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "index": {
+          "description": "Ordinal of the level. 0 = ground floor, negative = basement.",
+          "type": "integer",
+          "minimum": -20,
+          "maximum": 200
+        },
+        "elevation_mm": {
+          "description": "Finished floor level above project zero.",
+          "type": "integer",
+          "minimum": -100000,
+          "maximum": 1000000
+        },
+        "height_mm": {
+          "description": "Clear level height. Used as fallback for wall heights.",
+          "$ref": "#/$defs/positive_length_mm"
+        },
+        "walls": { "type": "array", "items": { "$ref": "#/$defs/wall" } },
+        "openings": { "type": "array", "items": { "$ref": "#/$defs/opening" } },
+        "spaces": { "type": "array", "items": { "$ref": "#/$defs/space" } },
+        "columns": { "type": "array", "items": { "$ref": "#/$defs/column" } },
+        "stairs": { "type": "array", "items": { "$ref": "#/$defs/stair" } },
+        "shafts": { "type": "array", "items": { "$ref": "#/$defs/shaft" } },
+        "dimensions": { "type": "array", "items": { "$ref": "#/$defs/dimension" } },
+        "annotations": { "type": "array", "items": { "$ref": "#/$defs/annotation" } },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "wall": {
+      "description": "A straight wall defined by its centerline and thickness. The wall body is derived at runtime.",
+      "type": "object",
+      "required": ["id", "type", "start", "end", "thickness_mm"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "wall" },
+        "name": { "type": "string", "maxLength": 200 },
+        "start": { "$ref": "#/$defs/point" },
+        "end": { "$ref": "#/$defs/point" },
+        "thickness_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "height_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "base_z_mm": {
+          "description": "Offset of the wall base above the level elevation.",
+          "type": "integer",
+          "minimum": -10000,
+          "maximum": 100000
+        },
+        "classification": {
+          "enum": ["exterior", "interior", "partition", "structural", "retaining", "virtual"]
+        },
+        "material": { "type": "string", "maxLength": 200 },
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "property_provenance": { "$ref": "#/$defs/property_provenance" },
+        "source_id": { "$ref": "#/$defs/id_ref" },
+        "observation_ids": { "type": "array", "items": { "$ref": "#/$defs/id_ref" } },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "opening": {
+      "description": "An opening hosted by a wall. offset_mm is measured from wall.start along the centerline to the CENTRE of the opening. See docs/adr/0005-opening-hosting.md.",
+      "type": "object",
+      "required": ["id", "type", "host_wall_id", "offset_mm", "width_mm"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "enum": ["door", "window", "passage", "generic_opening"] },
+        "name": { "type": "string", "maxLength": 200 },
+        "host_wall_id": { "$ref": "#/$defs/id_ref" },
+        "offset_mm": { "$ref": "#/$defs/length_mm" },
+        "width_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "height_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "sill_mm": {
+          "description": "Height of the opening sill above finished floor. Windows and generic openings only.",
+          "$ref": "#/$defs/length_mm"
+        },
+        "door_type": {
+          "description": "Doors only.",
+          "enum": ["swing", "double", "sliding", "pocket", "folding", "garage", "revolving"]
+        },
+        "hinge": {
+          "description": "Doors only. Side of the opening carrying the hinge, seen along wall.start -> wall.end. 'left' = the edge closer to wall.start.",
+          "enum": ["left", "right"]
+        },
+        "swing": {
+          "description": "Doors only. Wall side the leaf opens towards. 'left' = +90 degrees (counter clockwise) from the wall direction. 'none' for sliding/pocket doors.",
+          "enum": ["left", "right", "none"]
+        },
+        "window_type": {
+          "description": "Windows only.",
+          "enum": ["fixed", "casement", "tilt_turn", "sliding", "french", "skylight"]
+        },
+        "has_threshold": {
+          "description": "Passages only. Whether a floor threshold line is present.",
+          "type": "boolean"
+        },
+        "connects_space_ids": {
+          "description": "Optional and redundant: derived from geometry by the topology layer and cross checked by the validator. One entry for openings to the outside.",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": { "$ref": "#/$defs/id_ref" }
+        },
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "property_provenance": { "$ref": "#/$defs/property_provenance" },
+        "source_id": { "$ref": "#/$defs/id_ref" },
+        "observation_ids": { "type": "array", "items": { "$ref": "#/$defs/id_ref" } },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "door" } }, "required": ["type"] },
+          "then": {
+            "required": ["door_type"],
+            "not": { "anyOf": [
+              { "required": ["window_type"] },
+              { "required": ["has_threshold"] },
+              { "required": ["sill_mm"] }
+            ] }
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "window" } }, "required": ["type"] },
+          "then": {
+            "required": ["sill_mm"],
+            "not": { "anyOf": [
+              { "required": ["door_type"] },
+              { "required": ["hinge"] },
+              { "required": ["swing"] },
+              { "required": ["has_threshold"] }
+            ] }
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "passage" } }, "required": ["type"] },
+          "then": {
+            "not": { "anyOf": [
+              { "required": ["door_type"] },
+              { "required": ["hinge"] },
+              { "required": ["swing"] },
+              { "required": ["window_type"] },
+              { "required": ["sill_mm"] }
+            ] }
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "generic_opening" } }, "required": ["type"] },
+          "then": {
+            "not": { "anyOf": [
+              { "required": ["door_type"] },
+              { "required": ["hinge"] },
+              { "required": ["swing"] },
+              { "required": ["window_type"] },
+              { "required": ["has_threshold"] }
+            ] }
+          }
+        }
+      ]
+    },
+
+    "space": {
+      "description": "A room or usable area. The boundary follows the clear inner face of the enclosing walls.",
+      "type": "object",
+      "required": ["id", "type", "name", "boundary"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "space" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "category": {
+          "enum": [
+            "living", "bedroom", "kitchen", "dining", "bath", "wc", "hall", "corridor",
+            "office", "storage", "technical", "garage", "stairwell", "balcony", "terrace",
+            "outdoor", "other"
+          ]
+        },
+        "boundary": { "$ref": "#/$defs/polygon" },
+        "height_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "area_override_mm2": {
+          "description": "Externally supplied area (e.g. from an expose). Never used to modify geometry; only cross checked.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "label_anchor": {
+          "description": "Optional explicit label position. Defaults to the polygon's pole of inaccessibility.",
+          "$ref": "#/$defs/point"
+        },
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "property_provenance": { "$ref": "#/$defs/property_provenance" },
+        "source_id": { "$ref": "#/$defs/id_ref" },
+        "observation_ids": { "type": "array", "items": { "$ref": "#/$defs/id_ref" } },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "column": {
+      "type": "object",
+      "required": ["id", "type", "shape", "center"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "column" },
+        "name": { "type": "string", "maxLength": 200 },
+        "shape": { "enum": ["rect", "circle"] },
+        "center": { "$ref": "#/$defs/point" },
+        "width_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "depth_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "diameter_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "rotation_deg": { "$ref": "#/$defs/angle_deg" },
+        "height_mm": { "$ref": "#/$defs/positive_length_mm" },
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "property_provenance": { "$ref": "#/$defs/property_provenance" },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "shape": { "const": "rect" } }, "required": ["shape"] },
+          "then": { "required": ["width_mm", "depth_mm"] }
+        },
+        {
+          "if": { "properties": { "shape": { "const": "circle" } }, "required": ["shape"] },
+          "then": { "required": ["diameter_mm"] }
+        }
+      ]
+    },
+
+    "stair": {
+      "description": "Simplified stair: a footprint polygon plus the run axis giving the direction of ascent.",
+      "type": "object",
+      "required": ["id", "type", "footprint", "run_start", "run_end"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "stair" },
+        "name": { "type": "string", "maxLength": 200 },
+        "footprint": { "$ref": "#/$defs/polygon" },
+        "run_start": {
+          "description": "Bottom of the run (first step).",
+          "$ref": "#/$defs/point"
+        },
+        "run_end": {
+          "description": "Top of the run within this level.",
+          "$ref": "#/$defs/point"
+        },
+        "step_count": { "type": "integer", "minimum": 2, "maximum": 100 },
+        "rise_mm": {
+          "description": "Riser height of a single step. Real dimensioned plans state this as e.g. \"15 STG 18,3/26\".",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "run_mm": {
+          "description": "Tread depth of a single step.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "direction": { "enum": ["up", "down"] },
+        "to_level_id": { "$ref": "#/$defs/id_ref" },
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "property_provenance": { "$ref": "#/$defs/property_provenance" },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "shaft": {
+      "type": "object",
+      "required": ["id", "type", "boundary", "shaft_kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "shaft" },
+        "name": { "type": "string", "maxLength": 200 },
+        "boundary": { "$ref": "#/$defs/polygon" },
+        "shaft_kind": { "enum": ["elevator", "duct", "chimney", "plumbing", "other"] },
+        "state": { "$ref": "#/$defs/state" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "property_provenance": { "$ref": "#/$defs/property_provenance" },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "dimension": {
+      "description": "An explicit dimension annotation. The measured value is derived from start/end and never stored.",
+      "type": "object",
+      "required": ["id", "type", "start", "end"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "dimension" },
+        "start": { "$ref": "#/$defs/point" },
+        "end": { "$ref": "#/$defs/point" },
+        "offset_mm": {
+          "description": "Perpendicular offset of the dimension line from the measured segment. Positive = left of start->end.",
+          "type": "integer",
+          "minimum": -100000,
+          "maximum": 100000
+        },
+        "label_override": { "type": "string", "maxLength": 100 },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "verified": { "type": "boolean" },
+        "source_id": { "$ref": "#/$defs/id_ref" },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "annotation": {
+      "type": "object",
+      "required": ["id", "type", "position", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "annotation" },
+        "position": { "$ref": "#/$defs/point" },
+        "text": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "annotation_kind": { "enum": ["note", "label", "room_tag", "north_arrow", "scale_bar", "title"] },
+        "rotation_deg": { "$ref": "#/$defs/angle_deg" },
+        "tags": { "$ref": "#/$defs/tags" },
+        "meta": { "$ref": "#/$defs/meta" }
+      }
+    },
+
+    "history_entry": {
+      "type": "object",
+      "required": ["index", "operation", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "operation": {
+          "description": "The operation exactly as applied.",
+          "type": "object"
+        },
+        "summary": { "type": "string", "maxLength": 500 },
+        "affected_ids": { "type": "array", "items": { "type": "string" } },
+        "inverse": {
+          "description": "Operations that undo this entry, in the order they must be applied.",
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "digest": { "type": "string", "pattern": "^[0-9a-f]{16,64}$" },
+        "stamp": {
+          "description": "Optional ISO 8601 timestamp. Only present when explicitly supplied via --stamp.",
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    }
+  }
+}

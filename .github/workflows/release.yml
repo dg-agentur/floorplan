@@ -1,0 +1,112 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to release, e.g. v0.1.0-alpha.1'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Determine the version
+        id: version
+        run: |
+          tag="${{ inputs.tag || github.ref_name }}"
+          version=$(node -p "require('./package.json').version")
+          echo "tag=$tag"         >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          # The artefact must be built from exactly the tagged state.
+          test "$tag" = "v$version" \
+            || (echo "::error::Tag $tag does not match package.json version $version" && exit 1)
+          case "$version" in
+            *-alpha*|*-beta*|*-rc*) echo "prerelease=true"  >> "$GITHUB_OUTPUT" ;;
+            *)                      echo "prerelease=false" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Full check
+        # Exactly what CI runs, repeated here so nothing is published that was not verified.
+        run: npm run check
+
+      - name: Generated files are in sync
+        run: |
+          npm run generate
+          git diff --exit-code \
+            || (echo "::error::Generated files are stale in the tagged commit." && exit 1)
+
+      - name: Build the release artefacts
+        run: npm run build:skill
+
+      - name: Extract the changelog section
+        id: notes
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          {
+            echo 'body<<RELEASE_NOTES_EOF'
+            awk -v v="$version" '
+              $0 ~ "^## \\[" v "\\]" { found = 1; next }
+              found && /^## \[/      { exit }
+              found                  { print }
+            ' CHANGELOG.md
+            echo ''
+            echo '---'
+            echo ''
+            echo '### Artefakte'
+            echo ''
+            echo '| Datei | Inhalt |'
+            echo '|---|---|'
+            echo '| `skill.zip` | Self-contained ChatGPT-Skill inklusive Floorplan-Core. Node >= 20, kein `npm install`, kein Git-Clone, kein Netz. |'
+            echo '| `skill.zip.sha256` | Prüfsumme des Archivs. |'
+            echo ''
+            echo '```bash'
+            echo 'sha256sum -c skill.zip.sha256'
+            echo 'unzip -q skill.zip -d ./skill'
+            echo 'node ./skill/floorplan/scripts/floorplan.js --version'
+            echo '```'
+            echo ''
+            echo "SHA-256: \`$(cut -d' ' -f1 dist/chatgpt/skill.zip.sha256)\`"
+            echo 'RELEASE_NOTES_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          flags=""
+          if [ "${{ steps.version.outputs.prerelease }}" = "true" ]; then
+            flags="--prerelease"
+          fi
+          gh release create "${{ steps.version.outputs.tag }}" \
+            dist/chatgpt/skill.zip \
+            dist/chatgpt/skill.zip.sha256 \
+            --title "${{ steps.version.outputs.tag }}" \
+            --notes "${{ steps.notes.outputs.body }}" \
+            $flags
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ steps.version.outputs.version }}
+          path: dist/chatgpt/
+          retention-days: 90

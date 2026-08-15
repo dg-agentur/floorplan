@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="857.14" viewBox="-550 -4250 5600 4800" data-floorplan-schema="0.1" data-level-id="level_eg" data-project-id="fixture_01" data-quality="verified" data-unit="mm">
+  <title>Fixture 01 - Simple Room — Ground floor</title>
+  <desc>Deterministically rendered from a canonical floorplan model. Coordinates are millimetres; the Y axis is flipped for SVG. Quality level: verified.</desc>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="-550" y="-4250" width="5600" height="4800" fill="#ffffff"/>
+    <g data-layer="walls">
+      <path d="M -150 150 L 1745 150 L 1745 -150 L 150 -150 Z M 2755 150 L 4650 150 L 4350 -150 L 2755 -150 Z M 4650 150 L 4650 -3850 L 4350 -3550 L 4350 -150 Z M 4650 -3850 L 3900 -3850 L 3900 -3550 L 4350 -3550 Z M 2700 -3850 L 1800 -3850 L 1800 -3550 L 2700 -3550 Z M 600 -3850 L -150 -3850 L 150 -3550 L 600 -3550 Z M -150 -3850 L -150 150 L 150 -150 L 150 -3550 Z" fill="#2b2b2b" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_001 wall_002 wall_003 wall_004"/>
+      <path d="M -150 150 L 1745 150 M 1745 150 L 1745 -150 M 1745 -150 L 150 -150 M 2755 150 L 4650 150 M 4350 -150 L 2755 -150 M 2755 -150 L 2755 150 M 4650 150 L 4650 -3850 M 4350 -3550 L 4350 -150 M 4650 -3850 L 3900 -3850 M 3900 -3850 L 3900 -3550 M 3900 -3550 L 4350 -3550 M 2700 -3850 L 1800 -3850 M 1800 -3850 L 1800 -3550 M 1800 -3550 L 2700 -3550 M 2700 -3550 L 2700 -3850 M 600 -3850 L -150 -3850 M 150 -3550 L 600 -3550 M 600 -3550 L 600 -3850 M -150 -3850 L -150 150 M 150 -150 L 150 -3550" fill="none" stroke="#000000" stroke-width="6.72" stroke-linecap="square" data-type="wall-outline" data-ids="wall_001 wall_002 wall_003 wall_004"/>
+    </g>
+    <g data-layer="openings">
+      <g data-type="door" data-id="door_001">
+        <path d="M 1745 -150 L 1745 -1160 L 1775 -1160 L 1775 -150 Z" fill="none" stroke="#000000" stroke-width="5.6" stroke-linejoin="miter"/>
+        <path d="M 1745 -1160 A 1010 1010 0 0 1 2755 -150" fill="none" stroke="#000000" stroke-width="3.36"/>
+      </g>
+      <g data-type="window" data-id="window_001">
+        <path d="M 3900 -3850 L 2700 -3850 L 2700 -3550 L 3900 -3550 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 3900 -3700 L 2700 -3700" fill="none" stroke="#000000" stroke-width="4.48"/>
+        <path d="M 3900 -3850 L 3900 -3550" fill="none" stroke="#000000" stroke-width="5.6"/>
+        <path d="M 2700 -3850 L 2700 -3550" fill="none" stroke="#000000" stroke-width="5.6"/>
+      </g>
+      <g data-type="window" data-id="window_002">
+        <path d="M 1800 -3850 L 600 -3850 L 600 -3550 L 1800 -3550 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 1800 -3700 L 600 -3700" fill="none" stroke="#000000" stroke-width="4.48"/>
+        <path d="M 1800 -3850 L 1800 -3550" fill="none" stroke="#000000" stroke-width="5.6"/>
+        <path d="M 600 -3850 L 600 -3550" fill="none" stroke="#000000" stroke-width="5.6"/>
+      </g>
+    </g>
+    <g data-layer="labels">
+      <g data-type="space-label" data-id="space_room">
+        <text x="2250" y="-1850" font-size="61.6001" fill="#000000" text-anchor="middle" dominant-baseline="middle">Room</text>
+      </g>
+    </g>
+  </g>
+</svg>

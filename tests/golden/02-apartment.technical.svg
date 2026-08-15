@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1400" height="1055.74" viewBox="-850 -8350 12200 9200" data-floorplan-schema="0.1" data-level-id="level_eg" data-project-id="fixture_02" data-quality="scaled" data-unit="mm">
+  <title>Fixture 02 - Apartment — Apartment</title>
+  <desc>Deterministically rendered from a canonical floorplan model. Coordinates are millimetres; the Y axis is flipped for SVG. Quality level: scaled.</desc>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="-850" y="-8350" width="12200" height="9200" fill="#ffffff"/>
+    <g data-layer="spaces">
+      <path d="M 150 -3660 L 10350 -3660 L 10350 -4740 L 150 -4740 Z" fill="#f7f7f7" data-type="space" data-id="space_hall"/>
+      <path d="M 150 -150 L 5340 -150 L 5340 -3540 L 150 -3540 Z" fill="#f4f4f4" data-type="space" data-id="space_living"/>
+      <path d="M 5460 -150 L 10350 -150 L 10350 -3540 L 5460 -3540 Z" fill="#eef2f4" data-type="space" data-id="space_bath"/>
+      <path d="M 150 -4860 L 5340 -4860 L 5340 -7350 L 150 -7350 Z" fill="#f4f4f4" data-type="space" data-id="space_kitchen"/>
+      <path d="M 5460 -4860 L 10350 -4860 L 10350 -7350 L 5460 -7350 Z" fill="#f4f4f4" data-type="space" data-id="space_bedroom"/>
+    </g>
+    <g data-layer="walls">
+      <path d="M -150 150 L 1600 150 L 1600 -150 L 150 -150 Z M 3600 150 L 7400 150 L 7400 -150 L 3600 -150 Z M 8200 150 L 10650 150 L 10350 -150 L 8200 -150 Z M 10650 150 L 10650 -7650 L 10350 -7350 L 10350 -150 Z M 10650 -7650 L 8700 -7650 L 8700 -7350 L 10350 -7350 Z M 7100 -7650 L 3400 -7650 L 3400 -7350 L 7100 -7350 Z M 2000 -7650 L -150 -7650 L 150 -7350 L 2000 -7350 Z M -150 -7650 L -150 -4705 L 150 -4705 L 150 -7350 Z M -150 -3695 L -150 150 L 150 -150 L 150 -3695 Z" fill="#1f1f1f" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_ext_s wall_ext_e wall_ext_n wall_ext_w"/>
+      <path d="M -150 150 L 1600 150 M 1600 150 L 1600 -150 M 1600 -150 L 150 -150 M 3600 150 L 7400 150 M 7400 150 L 7400 -150 M 7400 -150 L 3600 -150 M 3600 -150 L 3600 150 M 8200 150 L 10650 150 M 10350 -150 L 8200 -150 M 8200 -150 L 8200 150 M 10650 150 L 10650 -7650 M 10350 -7350 L 10350 -150 M 10650 -7650 L 8700 -7650 M 8700 -7650 L 8700 -7350 M 8700 -7350 L 10350 -7350 M 7100 -7650 L 3400 -7650 M 3400 -7650 L 3400 -7350 M 3400 -7350 L 7100 -7350 M 7100 -7350 L 7100 -7650 M 2000 -7650 L -150 -7650 M 150 -7350 L 2000 -7350 M 2000 -7350 L 2000 -7650 M -150 -7650 L -150 -4705 M -150 -4705 L 150 -4705 M 150 -4705 L 150 -7350 M -150 -3695 L -150 150 M 150 -150 L 150 -3695 M 150 -3695 L -150 -3695" fill="none" stroke="#000000" stroke-width="8.7143" stroke-linecap="square" data-type="wall-outline" data-ids="wall_ext_s wall_ext_e wall_ext_n wall_ext_w"/>
+      <path d="M -150 -4740 L 2145 -4740 L 2145 -4860 L -150 -4860 Z M 3055 -4740 L 7445 -4740 L 7445 -4860 L 3055 -4860 Z M 8355 -4740 L 10650 -4740 L 10650 -4860 L 8355 -4860 Z M -150 -3540 L 1700 -3540 L 1700 -3660 L -150 -3660 Z M 3300 -3540 L 7395 -3540 L 7395 -3660 L 3300 -3660 Z M 8205 -3540 L 10650 -3540 L 10650 -3660 L 8205 -3660 Z M 5460 -4740 L 5460 -7650 L 5340 -7650 L 5340 -4740 Z M 5460 150 L 5460 -3660 L 5340 -3660 L 5340 150 Z" fill="#616161" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_corridor_n wall_corridor_s wall_div_n wall_div_s"/>
+      <path d="M -150 -4740 L 2145 -4740 M 2145 -4740 L 2145 -4860 M 2145 -4860 L -150 -4860 M -150 -4860 L -150 -4740 M 3055 -4740 L 7445 -4740 M 7445 -4740 L 7445 -4860 M 7445 -4860 L 5460 -4860 M 5340 -4860 L 3055 -4860 M 3055 -4860 L 3055 -4740 M 8355 -4740 L 10650 -4740 M 10650 -4740 L 10650 -4860 M 10650 -4860 L 8355 -4860 M 8355 -4860 L 8355 -4740 M -150 -3540 L 1700 -3540 M 1700 -3540 L 1700 -3660 M 1700 -3660 L -150 -3660 M -150 -3660 L -150 -3540 M 3300 -3540 L 5340 -3540 M 5460 -3540 L 7395 -3540 M 7395 -3540 L 7395 -3660 M 7395 -3660 L 3300 -3660 M 3300 -3660 L 3300 -3540 M 8205 -3540 L 10650 -3540 M 10650 -3540 L 10650 -3660 M 10650 -3660 L 8205 -3660 M 8205 -3660 L 8205 -3540 M 5460 -4860 L 5460 -7650 M 5460 -7650 L 5340 -7650 M 5340 -7650 L 5340 -4860 M 5340 -4740 L 5460 -4740 M 5460 150 L 5460 -3540 M 5460 -3660 L 5340 -3660 M 5340 -3540 L 5340 150 M 5340 150 L 5460 150" fill="none" stroke="#000000" stroke-width="8.7143" stroke-linecap="square" data-type="wall-outline" data-ids="wall_corridor_n wall_corridor_s wall_div_n wall_div_s"/>
+    </g>
+    <g data-layer="openings">
+      <g data-type="window" data-id="window_living">
+        <path d="M 1600 150 L 3600 150 L 3600 -150 L 1600 -150 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 1600 150 L 3600 150" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 1600 66 L 3600 66" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 1600 -66 L 3600 -66" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 1600 -150 L 3600 -150" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 1600 150 L 1600 -150" fill="none" stroke="#000000" stroke-width="8.7143"/>
+        <path d="M 3600 150 L 3600 -150" fill="none" stroke="#000000" stroke-width="8.7143"/>
+      </g>
+      <g data-type="window" data-id="window_bath">
+        <path d="M 7400 150 L 8200 150 L 8200 -150 L 7400 -150 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 7400 150 L 8200 150" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 7400 66 L 8200 66" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 7400 -66 L 8200 -66" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 7400 -150 L 8200 -150" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 7400 150 L 7400 -150" fill="none" stroke="#000000" stroke-width="8.7143"/>
+        <path d="M 8200 150 L 8200 -150" fill="none" stroke="#000000" stroke-width="8.7143"/>
+      </g>
+      <g data-type="window" data-id="window_bedroom">
+        <path d="M 8700 -7650 L 7100 -7650 L 7100 -7350 L 8700 -7350 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 8700 -7650 L 7100 -7650" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 8700 -7566 L 7100 -7566" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 8700 -7434 L 7100 -7434" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 8700 -7350 L 7100 -7350" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 8700 -7650 L 8700 -7350" fill="none" stroke="#000000" stroke-width="8.7143"/>
+        <path d="M 7100 -7650 L 7100 -7350" fill="none" stroke="#000000" stroke-width="8.7143"/>
+      </g>
+      <g data-type="window" data-id="window_kitchen">
+        <path d="M 3400 -7650 L 2000 -7650 L 2000 -7350 L 3400 -7350 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 3400 -7650 L 2000 -7650" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 3400 -7566 L 2000 -7566" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 3400 -7434 L 2000 -7434" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 3400 -7350 L 2000 -7350" fill="none" stroke="#1f1f1f" stroke-width="7.8429"/>
+        <path d="M 3400 -7650 L 3400 -7350" fill="none" stroke="#000000" stroke-width="8.7143"/>
+        <path d="M 2000 -7650 L 2000 -7350" fill="none" stroke="#000000" stroke-width="8.7143"/>
+      </g>
+      <g data-type="door" data-id="door_entrance">
+        <path d="M 150 -4705 L 1160 -4705 L 1160 -4665 L 150 -4665 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="8.7143" stroke-linejoin="miter"/>
+        <path d="M 1160 -4705 A 1010 1010 0 0 1 150 -3695" fill="none" stroke="#6f6f6f" stroke-width="6.1"/>
+      </g>
+      <g data-type="door" data-id="door_kitchen">
+        <path d="M 2145 -4860 L 2145 -5770 L 2185 -5770 L 2185 -4860 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="8.7143" stroke-linejoin="miter"/>
+        <path d="M 2145 -5770 A 910 910 0 0 1 3055 -4860" fill="none" stroke="#6f6f6f" stroke-width="6.1"/>
+      </g>
+      <g data-type="door" data-id="door_bedroom">
+        <path d="M 8355 -4860 L 8355 -5770 L 8315 -5770 L 8315 -4860 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="8.7143" stroke-linejoin="miter"/>
+        <path d="M 8355 -5770 A 910 910 0 0 0 7445 -4860" fill="none" stroke="#6f6f6f" stroke-width="6.1"/>
+      </g>
+      <g data-type="passage" data-id="passage_living">
+        <path d="M 1700 -3540 L 1700 -3660" fill="none" stroke="#000000" stroke-width="8.7143"/>
+        <path d="M 3300 -3540 L 3300 -3660" fill="none" stroke="#000000" stroke-width="8.7143"/>
+      </g>
+      <g data-type="door" data-id="door_bath">
+        <path d="M 7395 -3540 L 7395 -2730 L 7435 -2730 L 7435 -3540 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="8.7143" stroke-linejoin="miter"/>
+        <path d="M 7395 -2730 A 810 810 0 0 0 8205 -3540" fill="none" stroke="#6f6f6f" stroke-width="6.1"/>
+      </g>
+    </g>
+    <g data-layer="labels">
+      <g data-type="space-label" data-id="space_hall">
+        <text x="5250" y="-4261" font-size="104.5715" fill="#111111" text-anchor="middle" dominant-baseline="middle">Flur</text>
+        <text x="5250" y="-4130.29" font-size="87.1429" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">11,02 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_living">
+        <text x="2745" y="-1906" font-size="104.5715" fill="#111111" text-anchor="middle" dominant-baseline="middle">Wohnzimmer</text>
+        <text x="2745" y="-1775.29" font-size="87.1429" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">17,59 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_bath">
+        <text x="7905" y="-1906" font-size="104.5715" fill="#111111" text-anchor="middle" dominant-baseline="middle">Bad</text>
+        <text x="7905" y="-1775.29" font-size="87.1429" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">16,58 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_kitchen">
+        <text x="2745" y="-6166" font-size="104.5715" fill="#111111" text-anchor="middle" dominant-baseline="middle">Küche</text>
+        <text x="2745" y="-6035.29" font-size="87.1429" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">12,92 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_bedroom">
+        <text x="7905" y="-6166" font-size="104.5715" fill="#111111" text-anchor="middle" dominant-baseline="middle">Schlafzimmer</text>
+        <text x="7905" y="-6035.29" font-size="87.1429" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">12,18 m²</text>
+      </g>
+    </g>
+  </g>
+</svg>

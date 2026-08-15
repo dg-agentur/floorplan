@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1400" height="1262.89" viewBox="-850 -6850 9700 8750" data-floorplan-schema="0.1" data-level-id="level_eg" data-project-id="fixture_05" data-quality="scaled" data-unit="mm">
+  <title>Fixture 05 - Renovation — Erdgeschoss</title>
+  <desc>Deterministically rendered from a canonical floorplan model. Coordinates are millimetres; the Y axis is flipped for SVG. Quality level: scaled.</desc>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="-850" y="-6850" width="9700" height="8750" fill="#ffffff"/>
+    <g data-layer="spaces">
+      <path d="M 150 -150 L 5140 -150 L 5140 -5850 L 150 -5850 Z" fill="#f4f4f4" data-type="space" data-id="space_left"/>
+      <path d="M 5260 -150 L 7850 -150 L 7850 -5850 L 5260 -5850 Z" fill="#f4f4f4" data-type="space" data-id="space_right"/>
+    </g>
+    <g data-layer="walls">
+      <path d="M -150 150 L 1400 150 L 1400 -150 L 150 -150 Z M 3000 150 L 8150 150 L 7850 -150 L 3000 -150 Z M 8150 150 L 8150 -6150 L 7850 -5850 L 7850 -150 Z M 8150 -6150 L 6800 -6150 L 6800 -5850 L 7850 -5850 Z M 5600 -6150 L -150 -6150 L 150 -5850 L 5600 -5850 Z M -150 -6150 L -150 -3505 L 150 -3505 L 150 -5850 Z M -150 -2495 L -150 150 L 150 -150 L 150 -2495 Z" fill="#1f1f1f" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_ext_s wall_ext_e wall_ext_n wall_ext_w"/>
+      <path d="M -150 150 L 1400 150 M 1400 150 L 1400 -150 M 1400 -150 L 150 -150 M 3000 150 L 8150 150 M 7850 -150 L 3000 -150 M 3000 -150 L 3000 150 M 8150 150 L 8150 -6150 M 7850 -5850 L 7850 -150 M 8150 -6150 L 6800 -6150 M 6800 -6150 L 6800 -5850 M 6800 -5850 L 7850 -5850 M 5600 -6150 L -150 -6150 M 150 -5850 L 5600 -5850 M 5600 -5850 L 5600 -6150 M -150 -6150 L -150 -3505 M -150 -3505 L 150 -3505 M 150 -3505 L 150 -5850 M -150 -2495 L -150 150 M 150 -150 L 150 -2495 M 150 -2495 L -150 -2495" fill="none" stroke="#000000" stroke-width="6.9286" stroke-linecap="square" data-type="wall-outline" data-ids="wall_ext_s wall_ext_e wall_ext_n wall_ext_w"/>
+      <path d="M 4060 150 L 4060 -2595 M 4060 -2595 L 3940 -2595 M 3940 -2595 L 3940 150 M 3940 150 L 4060 150 M 4060 -3405 L 4060 -6150 M 4060 -6150 L 3940 -6150 M 3940 -6150 L 3940 -3405 M 3940 -3405 L 4060 -3405" fill="none" stroke="#b03a2e" stroke-width="6.9286" stroke-dasharray="48.5 27.7143" stroke-linecap="square" data-type="wall-outline" data-ids="wall_old_partition"/>
+      <path d="M 5260 150 L 5260 -2545 L 5140 -2545 L 5140 150 Z M 5260 -3455 L 5260 -6150 L 5140 -6150 L 5140 -3455 Z" fill="#20558a" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_new_partition"/>
+      <path d="M 5260 150 L 5260 -2545 M 5260 -2545 L 5140 -2545 M 5140 -2545 L 5140 150 M 5140 150 L 5260 150 M 5260 -3455 L 5260 -6150 M 5260 -6150 L 5140 -6150 M 5140 -6150 L 5140 -3455 M 5140 -3455 L 5260 -3455" fill="none" stroke="#123556" stroke-width="6.9286" stroke-linecap="square" data-type="wall-outline" data-ids="wall_new_partition"/>
+    </g>
+    <g data-layer="openings">
+      <g data-type="window" data-id="window_south">
+        <path d="M 1400 150 L 3000 150 L 3000 -150 L 1400 -150 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 1400 150 L 3000 150" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 1400 66 L 3000 66" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 1400 -66 L 3000 -66" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 1400 -150 L 3000 -150" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 1400 150 L 1400 -150" fill="none" stroke="#000000" stroke-width="6.9286"/>
+        <path d="M 3000 150 L 3000 -150" fill="none" stroke="#000000" stroke-width="6.9286"/>
+      </g>
+      <g data-type="window" data-id="window_north">
+        <path d="M 6800 -6150 L 5600 -6150 L 5600 -5850 L 6800 -5850 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 6800 -6150 L 5600 -6150" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 6800 -6066 L 5600 -6066" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 6800 -5934 L 5600 -5934" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 6800 -5850 L 5600 -5850" fill="none" stroke="#1f1f1f" stroke-width="6.2357"/>
+        <path d="M 6800 -6150 L 6800 -5850" fill="none" stroke="#000000" stroke-width="6.9286"/>
+        <path d="M 5600 -6150 L 5600 -5850" fill="none" stroke="#000000" stroke-width="6.9286"/>
+      </g>
+      <g data-type="door" data-id="door_entrance">
+        <path d="M 150 -3505 L 1160 -3505 L 1160 -3465 L 150 -3465 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="6.9286" stroke-linejoin="miter"/>
+        <path d="M 1160 -3505 A 1010 1010 0 0 1 150 -2495" fill="none" stroke="#6f6f6f" stroke-width="4.85"/>
+      </g>
+      <g data-type="door" data-id="door_old" opacity="0.85">
+        <path d="M 3940 -2595 L 3130 -2595 L 3130 -2635 L 3940 -2635 Z" fill="none" stroke="#b03a2e" stroke-width="6.9286" stroke-dasharray="41.5714 27.7143" stroke-linejoin="miter"/>
+        <path d="M 3130 -2595 A 810 810 0 0 1 3940 -3405" fill="none" stroke="#b03a2e" stroke-width="4.85" stroke-dasharray="27.7143 20.7857"/>
+      </g>
+      <g data-type="door" data-id="door_planned">
+        <path d="M 5140 -2545 L 4230 -2545 L 4230 -2585 L 5140 -2585 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="6.9286" stroke-dasharray="41.5714 20.7857" stroke-linejoin="miter"/>
+        <path d="M 4230 -2545 A 910 910 0 0 1 5140 -3455" fill="none" stroke="#6f6f6f" stroke-width="4.85" stroke-dasharray="41.5714 20.7857"/>
+      </g>
+    </g>
+    <g data-layer="labels">
+      <g data-type="space-label" data-id="space_left">
+        <text x="2645" y="-3048.5" font-size="83.1428" fill="#111111" text-anchor="middle" dominant-baseline="middle">Wohnen (geplant)</text>
+        <text x="2645" y="-2944.57" font-size="69.2857" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">28,44 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_right">
+        <text x="6555" y="-3048.5" font-size="83.1428" fill="#111111" text-anchor="middle" dominant-baseline="middle">Arbeiten (geplant)</text>
+        <text x="6555" y="-2944.57" font-size="69.2857" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">14,76 m²</text>
+      </g>
+    </g>
+    <g data-layer="annotations">
+      <text x="4000" y="1200" font-size="69.2857" fill="#333333" text-anchor="middle" dominant-baseline="middle" data-type="annotation" data-id="note_states">Bestand / Abbruch / Neubau in einem Modell</text>
+    </g>
+  </g>
+</svg>

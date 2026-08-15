@@ -1,0 +1,258 @@
+{
+  "schema_version": "0.1",
+  "unit": "mm",
+  "project": {
+    "id": "fixture_06",
+    "name": "Fixture 06 - Uncertain reconstruction",
+    "description": "Reconstructed from 20 observations produced by synthetic-fixture. Values are interpreted, not measured.",
+    "quality": "marketing",
+    "defaults": {
+      "state": "existing",
+      "provenance": "estimated"
+    }
+  },
+  "sources": [
+    {
+      "id": "src_expose",
+      "description": "Synthetic test data standing in for a low resolution floorplan image from a real estate exposé.",
+      "kind": "image",
+      "uri": "expose-plan.png"
+    }
+  ],
+  "buildings": [
+    {
+      "levels": [
+        {
+          "id": "level_eg",
+          "name": "Reconstructed level",
+          "index": 0,
+          "elevation_mm": 0,
+          "walls": [
+            {
+              "id": "wall_001",
+              "type": "wall",
+              "start": { "x_mm": 0, "y_mm": 0 },
+              "end": { "x_mm": 7000, "y_mm": 0 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.94,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_wall_s"]
+            },
+            {
+              "id": "wall_002",
+              "type": "wall",
+              "start": { "x_mm": 7000, "y_mm": 0 },
+              "end": { "x_mm": 7000, "y_mm": 5000 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.92,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_wall_e"]
+            },
+            {
+              "id": "wall_003",
+              "type": "wall",
+              "start": { "x_mm": 7000, "y_mm": 5000 },
+              "end": { "x_mm": 0, "y_mm": 5000 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.9,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_wall_n_a", "obs_wall_n_b"]
+            },
+            {
+              "id": "wall_004",
+              "type": "wall",
+              "start": { "x_mm": 0, "y_mm": 5000 },
+              "end": { "x_mm": 0, "y_mm": 0 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.9,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_wall_w"]
+            },
+            {
+              "id": "wall_005",
+              "type": "wall",
+              "start": { "x_mm": 3000, "y_mm": 0 },
+              "end": { "x_mm": 3000, "y_mm": 5000 },
+              "thickness_mm": 120,
+              "classification": "partition",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.82,
+              "property_provenance": {
+                "thickness_mm": {
+                  "provenance": "estimated",
+                  "confidence": 0.3,
+                  "note": "default thickness supplied at import time"
+                }
+              },
+              "source_id": "src_expose",
+              "observation_ids": ["obs_wall_int_v"]
+            },
+            {
+              "id": "wall_006",
+              "type": "wall",
+              "start": { "x_mm": 3000, "y_mm": 2500 },
+              "end": { "x_mm": 7000, "y_mm": 2500 },
+              "thickness_mm": 120,
+              "classification": "partition",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.79,
+              "property_provenance": {
+                "thickness_mm": {
+                  "provenance": "estimated",
+                  "confidence": 0.3,
+                  "note": "default thickness supplied at import time"
+                }
+              },
+              "source_id": "src_expose",
+              "observation_ids": ["obs_wall_int_h"]
+            }
+          ],
+          "openings": [
+            {
+              "id": "door_001",
+              "type": "door",
+              "width_mm": 1000,
+              "offset_mm": 3500,
+              "host_wall_id": "wall_004",
+              "door_type": "swing",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.9,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_door_entrance"]
+            },
+            {
+              "id": "door_002",
+              "type": "door",
+              "width_mm": 900,
+              "offset_mm": 3750,
+              "host_wall_id": "wall_005",
+              "door_type": "swing",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.85,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_door_interior"]
+            },
+            {
+              "id": "opening_001",
+              "type": "generic_opening",
+              "width_mm": 1200,
+              "offset_mm": 2000,
+              "host_wall_id": "wall_006",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.7,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_opening_unclear"]
+            },
+            {
+              "id": "window_001",
+              "type": "window",
+              "width_mm": 1200,
+              "sill_mm": 900,
+              "offset_mm": 1500,
+              "host_wall_id": "wall_001",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.8,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_window_s"]
+            }
+          ],
+          "spaces": [
+            {
+              "id": "space_001",
+              "type": "space",
+              "name": "Wohnzimmer",
+              "boundary": [
+                { "x_mm": 150, "y_mm": 150 },
+                { "x_mm": 2940, "y_mm": 150 },
+                { "x_mm": 2940, "y_mm": 4850 },
+                { "x_mm": 150, "y_mm": 4850 }
+              ],
+              "category": "living",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.75,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_space_living"]
+            },
+            {
+              "id": "space_002",
+              "type": "space",
+              "name": "Küche",
+              "boundary": [
+                { "x_mm": 3060, "y_mm": 2560 },
+                { "x_mm": 6850, "y_mm": 2560 },
+                { "x_mm": 6850, "y_mm": 4850 },
+                { "x_mm": 3060, "y_mm": 4850 }
+              ],
+              "category": "kitchen",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.72,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_space_kitchen"]
+            },
+            {
+              "id": "space_003",
+              "type": "space",
+              "name": "Bad",
+              "boundary": [
+                { "x_mm": 3060, "y_mm": 150 },
+                { "x_mm": 6850, "y_mm": 150 },
+                { "x_mm": 6850, "y_mm": 2440 },
+                { "x_mm": 3060, "y_mm": 2440 }
+              ],
+              "category": "bath",
+              "state": "existing",
+              "provenance": "estimated",
+              "confidence": 0.68,
+              "source_id": "src_expose",
+              "observation_ids": ["obs_space_bath"]
+            }
+          ],
+          "dimensions": [
+            {
+              "id": "dim_001",
+              "type": "dimension",
+              "start": { "x_mm": 0, "y_mm": -600 },
+              "end": { "x_mm": 7000, "y_mm": -600 },
+              "label_override": "7,00",
+              "provenance": "parsed",
+              "confidence": 0.86,
+              "source_id": "src_expose"
+            }
+          ],
+          "annotations": [
+            {
+              "id": "note_001",
+              "type": "annotation",
+              "position": { "x_mm": 5000, "y_mm": 1200 },
+              "text": "WC",
+              "annotation_kind": "label"
+            }
+          ]
+        }
+      ],
+      "id": "building_main",
+      "name": "Reconstructed building"
+    }
+  ],
+  "revision": 0
+}

@@ -1,0 +1,1757 @@
+{
+  "type": "object",
+  "description": "A list of explicit, validated change operations. Applying a batch is atomic: if one operation fails, none are applied. Generated from src/operations/registry.js — do not edit by hand.",
+  "$defs": {
+    "operation": {
+      "type": "object",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_attribute"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_attribute"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_provenance"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_provenance"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_state"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_state"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "convert_opening"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/convert_opening"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_door"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_door"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_opening"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_opening"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_passage"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_passage"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_window"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_window"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "delete_opening"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/delete_opening"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "move_opening"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/move_opening"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "resize_opening"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/resize_opening"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_space"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_space"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "delete_space"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/delete_space"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "merge_spaces"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/merge_spaces"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "rename_space"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/rename_space"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_space_boundary"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_space_boundary"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_space_category"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_space_category"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "split_space"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/split_space"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "add_annotation"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/add_annotation"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "add_dimension"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/add_dimension"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_level"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_level"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "delete_element"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/delete_element"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "delete_level"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/delete_level"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "restore_element"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/restore_element"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_element"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_element"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_project_quality"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_project_quality"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "create_wall"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/create_wall"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "delete_wall"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/delete_wall"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "move_wall"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/move_wall"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "set_wall_thickness"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/set_wall_thickness"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "split_wall"
+              }
+            },
+            "required": ["op"]
+          },
+          "then": {
+            "$ref": "#/$defs/split_wall"
+          }
+        }
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "set_attribute",
+            "set_provenance",
+            "set_state",
+            "convert_opening",
+            "create_door",
+            "create_opening",
+            "create_passage",
+            "create_window",
+            "delete_opening",
+            "move_opening",
+            "resize_opening",
+            "create_space",
+            "delete_space",
+            "merge_spaces",
+            "rename_space",
+            "set_space_boundary",
+            "set_space_category",
+            "split_space",
+            "add_annotation",
+            "add_dimension",
+            "create_level",
+            "delete_element",
+            "delete_level",
+            "restore_element",
+            "set_element",
+            "set_project_quality",
+            "create_wall",
+            "delete_wall",
+            "move_wall",
+            "set_wall_thickness",
+            "split_wall"
+          ]
+        }
+      },
+      "required": ["op"]
+    },
+    "add_annotation": {
+      "type": "object",
+      "description": "Add a free text annotation at a position. Annotations are drawing notes. They never influence geometry or validation.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "position": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "rotation_deg": {
+          "type": "number",
+          "maximum": 360,
+          "minimum": -360
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "annotation_kind": {
+          "enum": ["note", "label", "room_tag", "north_arrow", "scale_bar", "title"]
+        },
+        "op": {
+          "const": "add_annotation"
+        },
+        "level_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "position", "text"],
+      "title": "add_annotation"
+    },
+    "add_dimension": {
+      "type": "object",
+      "description": "Add a dimension line between two points. The measured value is always derived from the two points and is never stored separately.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "start": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "end": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "offset_mm": {
+          "type": "integer",
+          "maximum": 100000,
+          "minimum": -100000
+        },
+        "label_override": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "add_dimension"
+        },
+        "level_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "start", "end"],
+      "title": "add_dimension"
+    },
+    "convert_opening": {
+      "type": "object",
+      "description": "Convert an opening into another type, e.g. a door into an open passage. Keeps id, host wall and position. Attributes that do not apply to the new type are dropped, and the attributes required by the new type must be supplied. This is the operation for \"remove the door and make it a 1.60 m opening\" — it keeps the identity of the opening instead of deleting and recreating it.",
+      "additionalProperties": false,
+      "properties": {
+        "width_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sill_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "door_type": {
+          "enum": ["swing", "double", "sliding", "pocket", "folding", "garage", "revolving"]
+        },
+        "hinge": {
+          "enum": ["left", "right"]
+        },
+        "swing": {
+          "enum": ["left", "right", "none"]
+        },
+        "window_type": {
+          "enum": ["fixed", "casement", "tilt_turn", "sliding", "french", "skylight"]
+        },
+        "has_threshold": {
+          "type": "boolean"
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "op": {
+          "const": "convert_opening"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "to_type": {
+          "enum": ["door", "window", "passage", "generic_opening"]
+        }
+      },
+      "required": ["op", "target_id", "to_type"],
+      "title": "convert_opening"
+    },
+    "create_door": {
+      "type": "object",
+      "description": "Create a door in a wall. offset_mm is the distance from wall.start to the CENTRE of the opening, measured along the wall centerline. The operation fails if the opening does not fit or overlaps an existing one.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "width_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "offset_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "host_wall_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "door_type": {
+          "enum": ["swing", "double", "sliding", "pocket", "folding", "garage", "revolving"]
+        },
+        "hinge": {
+          "enum": ["left", "right"]
+        },
+        "swing": {
+          "enum": ["left", "right", "none"]
+        },
+        "connects_space_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "maxItems": 2,
+          "minItems": 1
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "create_door"
+        }
+      },
+      "required": ["op", "host_wall_id", "offset_mm", "width_mm", "door_type"],
+      "title": "create_door"
+    },
+    "create_level": {
+      "type": "object",
+      "description": "Add a level to a building. Creates an empty level. The building defaults to the first building in the document.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "index": {
+          "type": "integer",
+          "maximum": 200,
+          "minimum": -20
+        },
+        "elevation_mm": {
+          "type": "integer",
+          "maximum": 1000000,
+          "minimum": -100000
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "op": {
+          "const": "create_level"
+        },
+        "building_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "name", "index", "elevation_mm"],
+      "title": "create_level"
+    },
+    "create_opening": {
+      "type": "object",
+      "description": "Create a generic opening in a wall. offset_mm is the distance from wall.start to the CENTRE of the opening, measured along the wall centerline. The operation fails if the opening does not fit or overlaps an existing one.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "width_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sill_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "offset_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "host_wall_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "connects_space_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "maxItems": 2,
+          "minItems": 1
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "create_opening"
+        }
+      },
+      "required": ["op", "host_wall_id", "offset_mm", "width_mm"],
+      "title": "create_opening"
+    },
+    "create_passage": {
+      "type": "object",
+      "description": "Create a passage in a wall. offset_mm is the distance from wall.start to the CENTRE of the opening, measured along the wall centerline. The operation fails if the opening does not fit or overlaps an existing one.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "width_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "offset_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "host_wall_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "has_threshold": {
+          "type": "boolean"
+        },
+        "connects_space_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "maxItems": 2,
+          "minItems": 1
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "create_passage"
+        }
+      },
+      "required": ["op", "host_wall_id", "offset_mm", "width_mm"],
+      "title": "create_passage"
+    },
+    "create_space": {
+      "type": "object",
+      "description": "Create a room from a boundary polygon. The boundary should follow the clear inner face of the enclosing walls. It is stored counter clockwise; the orientation is normalised automatically.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "boundary": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+            "required": ["x_mm", "y_mm"]
+          },
+          "minItems": 3
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "category": {
+          "enum": [
+            "living",
+            "bedroom",
+            "kitchen",
+            "dining",
+            "bath",
+            "wc",
+            "hall",
+            "corridor",
+            "office",
+            "storage",
+            "technical",
+            "garage",
+            "stairwell",
+            "balcony",
+            "terrace",
+            "outdoor",
+            "other"
+          ]
+        },
+        "area_override_mm2": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "label_anchor": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "create_space"
+        },
+        "level_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "name", "boundary"],
+      "title": "create_space"
+    },
+    "create_wall": {
+      "type": "object",
+      "description": "Create a new wall from its centerline and thickness. start and end are the centerline endpoints in millimetres. Snap them exactly to existing wall endpoints so that corners can be mitred (docs/geometry-model.md).",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "start": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "end": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "thickness_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "base_z_mm": {
+          "type": "integer",
+          "maximum": 100000,
+          "minimum": -10000
+        },
+        "classification": {
+          "enum": ["exterior", "interior", "partition", "structural", "retaining", "virtual"]
+        },
+        "material": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "create_wall"
+        },
+        "level_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "start", "end", "thickness_mm"],
+      "title": "create_wall"
+    },
+    "create_window": {
+      "type": "object",
+      "description": "Create a window in a wall. offset_mm is the distance from wall.start to the CENTRE of the opening, measured along the wall centerline. The operation fails if the opening does not fit or overlaps an existing one.",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "width_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sill_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "offset_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "host_wall_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "window_type": {
+          "enum": ["fixed", "casement", "tilt_turn", "sliding", "french", "skylight"]
+        },
+        "connects_space_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "maxItems": 2,
+          "minItems": 1
+        },
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "create_window"
+        }
+      },
+      "required": ["op", "host_wall_id", "offset_mm", "width_mm", "sill_mm"],
+      "title": "create_window"
+    },
+    "delete_element": {
+      "type": "object",
+      "description": "Remove any element by id. Low level operation. Does NOT cascade: deleting a wall that still hosts openings is refused. Use delete_wall for the cascading variant.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "delete_element"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "delete_element"
+    },
+    "delete_level": {
+      "type": "object",
+      "description": "Remove an empty level. Refuses to delete a level that still contains elements, and refuses to delete the last level.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "delete_level"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "delete_level"
+    },
+    "delete_opening": {
+      "type": "object",
+      "description": "Remove a door, window or passage. Works for every opening type. The wall closes up again automatically because openings are gaps in the wall geometry.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "delete_opening"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "delete_opening"
+    },
+    "delete_space": {
+      "type": "object",
+      "description": "Remove a room. Walls and openings are not affected; only the room definition disappears.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "delete_space"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "delete_space"
+    },
+    "delete_wall": {
+      "type": "object",
+      "description": "Delete a wall together with every opening hosted by it. Cascades to the hosted openings, because an opening without its wall is meaningless. The inverse restores the wall and all removed openings.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "delete_wall"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "delete_wall"
+    },
+    "merge_spaces": {
+      "type": "object",
+      "description": "Merge two adjacent rooms into one. The two rooms must share a common boundary. The first id survives and keeps its identity; the second is removed. Use this after removing a partition wall.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "category": {
+          "enum": [
+            "living",
+            "bedroom",
+            "kitchen",
+            "dining",
+            "bath",
+            "wc",
+            "hall",
+            "corridor",
+            "office",
+            "storage",
+            "technical",
+            "garage",
+            "stairwell",
+            "balcony",
+            "terrace",
+            "outdoor",
+            "other"
+          ]
+        },
+        "op": {
+          "const": "merge_spaces"
+        },
+        "target_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "maxItems": 2,
+          "minItems": 2
+        }
+      },
+      "required": ["op", "target_ids"],
+      "title": "merge_spaces"
+    },
+    "move_opening": {
+      "type": "object",
+      "description": "Move an opening along its host wall. Provide either offset_delta_mm (relative) or offset_mm (absolute). Positive delta moves towards wall.end. The move is refused if the opening would leave the wall or collide with another opening.",
+      "additionalProperties": false,
+      "properties": {
+        "offset_mm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "op": {
+          "const": "move_opening"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "offset_delta_mm": {
+          "type": "integer",
+          "maximum": 1000000,
+          "minimum": -1000000
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "move_opening"
+    },
+    "move_wall": {
+      "type": "object",
+      "description": "Move a wall, dragging connected walls and room boundaries with it. mode \"translate\" shifts the wall by delta_mm. mode \"offset_normal\" shifts it sideways by offset_mm (positive = to the left of start -> end). Connected wall ends are re-projected onto the new centerline so the layout stays closed, and space boundary points that sat on the moved wall faces move with it. Everything that changed is listed in affected_ids.",
+      "additionalProperties": false,
+      "properties": {
+        "offset_mm": {
+          "type": "integer",
+          "maximum": 1000000,
+          "minimum": -1000000
+        },
+        "op": {
+          "const": "move_wall"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "delta_mm": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "dx_mm": {
+              "type": "integer",
+              "maximum": 1000000,
+              "minimum": -1000000
+            },
+            "dy_mm": {
+              "type": "integer",
+              "maximum": 1000000,
+              "minimum": -1000000
+            }
+          },
+          "required": ["dx_mm", "dy_mm"]
+        },
+        "keep_connections": {
+          "type": "boolean"
+        },
+        "mode": {
+          "enum": ["translate", "offset_normal"]
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "move_wall"
+    },
+    "rename_space": {
+      "type": "object",
+      "description": "Change the display name of a room. Only the name changes. The id stays as it is — ids are immutable (docs/adr/0007-identifiers.md).",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "op": {
+          "const": "rename_space"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id", "name"],
+      "title": "rename_space"
+    },
+    "resize_opening": {
+      "type": "object",
+      "description": "Change the width (and optionally the height) of an opening. The width changes symmetrically around offset_mm, so the opening does not move.",
+      "additionalProperties": false,
+      "properties": {
+        "width_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "op": {
+          "const": "resize_opening"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "width_delta_mm": {
+          "type": "integer",
+          "maximum": 1000000,
+          "minimum": -1000000
+        }
+      },
+      "required": ["op", "target_id"],
+      "title": "resize_opening"
+    },
+    "restore_element": {
+      "type": "object",
+      "description": "Insert a previously removed element back into a level. Low level operation, used as the inverse of delete operations. Fails if the id already exists.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "restore_element"
+        },
+        "at_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "element": {
+          "type": "object"
+        },
+        "level_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "level_id", "element"],
+      "title": "restore_element"
+    },
+    "set_attribute": {
+      "type": "object",
+      "description": "Set a non geometric attribute of an element. Only attributes from an allow list per element type can be written. Geometry defining fields are not reachable this way — use the dedicated operation instead. `floorplan ops describe set_attribute --json` lists the allowed attributes.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "set_attribute"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "attribute": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "value": {}
+      },
+      "required": ["op", "target_id", "attribute"],
+      "title": "set_attribute"
+    },
+    "set_element": {
+      "type": "object",
+      "description": "Replace an existing element with a complete new version. Low level operation. Replaces the element with the same id, keeping its position in its collection. Used as the exact inverse of geometry changing operations. Prefer a specific operation when one exists.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "set_element"
+        },
+        "element": {
+          "type": "object"
+        },
+        "level_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "level_id", "element"],
+      "title": "set_element"
+    },
+    "set_project_quality": {
+      "type": "object",
+      "description": "Change the quality level of the document. Raising the quality level is only allowed if the document actually validates without errors at the target level. A quality level is a proven property, not a claim (docs/adr/0015-quality-levels.md).",
+      "additionalProperties": false,
+      "properties": {
+        "quality": {
+          "enum": ["marketing", "scaled", "verified"]
+        },
+        "op": {
+          "const": "set_project_quality"
+        },
+        "force": {
+          "type": "boolean"
+        }
+      },
+      "required": ["op", "quality"],
+      "title": "set_project_quality"
+    },
+    "set_provenance": {
+      "type": "object",
+      "description": "Record where a value comes from and how sure we are. Without `property` the provenance applies to the whole element; with `property` it applies to that one value. Downgrading a doubtful value to \"estimated\" is the correct move — deleting the value is not (docs/adr/0008-provenance.md).",
+      "additionalProperties": false,
+      "properties": {
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "op": {
+          "const": "set_provenance"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "property": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        }
+      },
+      "required": ["op", "target_id", "provenance"],
+      "title": "set_provenance"
+    },
+    "set_space_boundary": {
+      "type": "object",
+      "description": "Replace the boundary polygon of a room. Use this when a room outline has to be corrected directly. For wall driven changes prefer move_wall.",
+      "additionalProperties": false,
+      "properties": {
+        "boundary": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+            "required": ["x_mm", "y_mm"]
+          },
+          "minItems": 3
+        },
+        "op": {
+          "const": "set_space_boundary"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id", "boundary"],
+      "title": "set_space_boundary"
+    },
+    "set_space_category": {
+      "type": "object",
+      "description": "Change the category of a room. The category drives theme colours and future rule modules. It is not a legal use classification.",
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "living",
+            "bedroom",
+            "kitchen",
+            "dining",
+            "bath",
+            "wc",
+            "hall",
+            "corridor",
+            "office",
+            "storage",
+            "technical",
+            "garage",
+            "stairwell",
+            "balcony",
+            "terrace",
+            "outdoor",
+            "other"
+          ]
+        },
+        "op": {
+          "const": "set_space_category"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id", "category"],
+      "title": "set_space_category"
+    },
+    "set_state": {
+      "type": "object",
+      "description": "Set the construction state of one or more elements. existing / planned / new / demolish / unknown. This is how a renovation is modelled: existing stock, demolition and new construction live in ONE document (docs/object-model.md).",
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "enum": ["existing", "planned", "new", "demolish", "unknown"]
+        },
+        "op": {
+          "const": "set_state"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "target_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["op", "state"],
+      "title": "set_state"
+    },
+    "set_wall_thickness": {
+      "type": "object",
+      "description": "Change the thickness of a wall. The centerline stays where it is, so the wall grows or shrinks symmetrically on both sides.",
+      "additionalProperties": false,
+      "properties": {
+        "thickness_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "provenance": {
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "confidence": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        },
+        "op": {
+          "const": "set_wall_thickness"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id", "thickness_mm"],
+      "title": "set_wall_thickness"
+    },
+    "split_space": {
+      "type": "object",
+      "description": "Split a room into two along a straight line. The line is infinite and must cross the room boundary exactly twice. The original room keeps its id and the larger part; the smaller part becomes a new room. Note that this changes only the room definition — add a wall separately if the split is a real partition.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "split_space"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "line_end": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "line_start": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": { "x_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+}, "y_mm": {
+  "type": "integer",
+  "maximum": 1000000000,
+  "minimum": -1000000000
+} },
+          "required": ["x_mm", "y_mm"]
+        },
+        "new_category": {
+          "enum": [
+            "living",
+            "bedroom",
+            "kitchen",
+            "dining",
+            "bath",
+            "wc",
+            "hall",
+            "corridor",
+            "office",
+            "storage",
+            "technical",
+            "garage",
+            "stairwell",
+            "balcony",
+            "terrace",
+            "outdoor",
+            "other"
+          ]
+        },
+        "new_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "new_name": {
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        }
+      },
+      "required": ["op", "target_id", "line_start", "line_end"],
+      "title": "split_space"
+    },
+    "split_wall": {
+      "type": "object",
+      "description": "Split a wall into two at a distance along its centerline. Openings are reassigned to the part they fall into. An opening that straddles the split point is refused rather than silently moved.",
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "const": "split_wall"
+        },
+        "target_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "at_mm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "new_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        }
+      },
+      "required": ["op", "target_id", "at_mm"],
+      "title": "split_wall"
+    }
+  },
+  "$id": "https://floorplan-platform.dev/schema/0.1/operations.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/operation"
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["schema_version", "operations"],
+  "title": "Floorplan Operation Batch"
+}

@@ -1,0 +1,285 @@
+{
+  "schema_version": "0.1",
+  "unit": "mm",
+  "project": {
+    "id": "fixture_02",
+    "name": "Fixture 02 - Apartment",
+    "description": "Five room apartment. Exercises interior walls with T junctions, several doors, one open passage, a connectivity graph with a central corridor, and document level provenance defaults.",
+    "quality": "scaled",
+    "defaults": {
+      "state": "existing",
+      "provenance": "provided",
+      "wall_height_mm": 2550
+    }
+  },
+  "sources": [
+    {
+      "id": "src_plan",
+      "kind": "drawing",
+      "description": "Synthetic test data. Not a real building."
+    }
+  ],
+  "buildings": [
+    {
+      "id": "building_main",
+      "name": "Apartment building",
+      "levels": [
+        {
+          "id": "level_eg",
+          "name": "Apartment",
+          "index": 0,
+          "elevation_mm": 0,
+          "height_mm": 2550,
+          "walls": [
+            {
+              "id": "wall_ext_s",
+              "type": "wall",
+              "name": "South facade",
+              "start": { "x_mm": 0, "y_mm": 0 },
+              "end": { "x_mm": 10500, "y_mm": 0 },
+              "thickness_mm": 300,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_ext_e",
+              "type": "wall",
+              "name": "East facade",
+              "start": { "x_mm": 10500, "y_mm": 0 },
+              "end": { "x_mm": 10500, "y_mm": 7500 },
+              "thickness_mm": 300,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_ext_n",
+              "type": "wall",
+              "name": "North facade",
+              "start": { "x_mm": 10500, "y_mm": 7500 },
+              "end": { "x_mm": 0, "y_mm": 7500 },
+              "thickness_mm": 300,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_ext_w",
+              "type": "wall",
+              "name": "West facade",
+              "start": { "x_mm": 0, "y_mm": 7500 },
+              "end": { "x_mm": 0, "y_mm": 0 },
+              "thickness_mm": 300,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_corridor_n",
+              "type": "wall",
+              "name": "Corridor wall north",
+              "start": { "x_mm": 0, "y_mm": 4800 },
+              "end": { "x_mm": 10500, "y_mm": 4800 },
+              "thickness_mm": 120,
+              "classification": "partition"
+            },
+            {
+              "id": "wall_corridor_s",
+              "type": "wall",
+              "name": "Corridor wall south",
+              "start": { "x_mm": 0, "y_mm": 3600 },
+              "end": { "x_mm": 10500, "y_mm": 3600 },
+              "thickness_mm": 120,
+              "classification": "partition"
+            },
+            {
+              "id": "wall_div_n",
+              "type": "wall",
+              "name": "Divider north",
+              "start": { "x_mm": 5400, "y_mm": 4800 },
+              "end": { "x_mm": 5400, "y_mm": 7500 },
+              "thickness_mm": 120,
+              "classification": "partition"
+            },
+            {
+              "id": "wall_div_s",
+              "type": "wall",
+              "name": "Divider south",
+              "start": { "x_mm": 5400, "y_mm": 0 },
+              "end": { "x_mm": 5400, "y_mm": 3600 },
+              "thickness_mm": 120,
+              "classification": "partition"
+            }
+          ],
+          "openings": [
+            {
+              "id": "door_entrance",
+              "type": "door",
+              "name": "Entrance",
+              "host_wall_id": "wall_ext_w",
+              "offset_mm": 3300,
+              "width_mm": 1010,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "connects_space_ids": ["space_hall"]
+            },
+            {
+              "id": "door_kitchen",
+              "type": "door",
+              "host_wall_id": "wall_corridor_n",
+              "offset_mm": 2600,
+              "width_mm": 910,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "connects_space_ids": ["space_hall", "space_kitchen"]
+            },
+            {
+              "id": "door_bedroom",
+              "type": "door",
+              "host_wall_id": "wall_corridor_n",
+              "offset_mm": 7900,
+              "width_mm": 910,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "right",
+              "swing": "left",
+              "connects_space_ids": ["space_bedroom", "space_hall"]
+            },
+            {
+              "id": "door_bath",
+              "type": "door",
+              "host_wall_id": "wall_corridor_s",
+              "offset_mm": 7800,
+              "width_mm": 810,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "right",
+              "connects_space_ids": ["space_bath", "space_hall"]
+            },
+            {
+              "id": "passage_living",
+              "type": "passage",
+              "name": "Open passage to the living room",
+              "host_wall_id": "wall_corridor_s",
+              "offset_mm": 2500,
+              "width_mm": 1600,
+              "height_mm": 2200,
+              "connects_space_ids": ["space_hall", "space_living"]
+            },
+            {
+              "id": "window_living",
+              "type": "window",
+              "host_wall_id": "wall_ext_s",
+              "offset_mm": 2600,
+              "width_mm": 2000,
+              "height_mm": 1400,
+              "sill_mm": 900,
+              "window_type": "tilt_turn"
+            },
+            {
+              "id": "window_bath",
+              "type": "window",
+              "host_wall_id": "wall_ext_s",
+              "offset_mm": 7800,
+              "width_mm": 800,
+              "height_mm": 800,
+              "sill_mm": 1400,
+              "window_type": "tilt_turn"
+            },
+            {
+              "id": "window_kitchen",
+              "type": "window",
+              "host_wall_id": "wall_ext_n",
+              "offset_mm": 7800,
+              "width_mm": 1400,
+              "height_mm": 1400,
+              "sill_mm": 1000,
+              "window_type": "tilt_turn"
+            },
+            {
+              "id": "window_bedroom",
+              "type": "window",
+              "host_wall_id": "wall_ext_n",
+              "offset_mm": 2600,
+              "width_mm": 1600,
+              "height_mm": 1400,
+              "sill_mm": 900,
+              "window_type": "tilt_turn"
+            }
+          ],
+          "spaces": [
+            {
+              "id": "space_hall",
+              "type": "space",
+              "name": "Flur",
+              "category": "corridor",
+              "boundary": [
+                { "x_mm": 150, "y_mm": 3660 },
+                { "x_mm": 10350, "y_mm": 3660 },
+                { "x_mm": 10350, "y_mm": 4740 },
+                { "x_mm": 150, "y_mm": 4740 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            },
+            {
+              "id": "space_living",
+              "type": "space",
+              "name": "Wohnzimmer",
+              "category": "living",
+              "boundary": [
+                { "x_mm": 150, "y_mm": 150 },
+                { "x_mm": 5340, "y_mm": 150 },
+                { "x_mm": 5340, "y_mm": 3540 },
+                { "x_mm": 150, "y_mm": 3540 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            },
+            {
+              "id": "space_bath",
+              "type": "space",
+              "name": "Bad",
+              "category": "bath",
+              "boundary": [
+                { "x_mm": 5460, "y_mm": 150 },
+                { "x_mm": 10350, "y_mm": 150 },
+                { "x_mm": 10350, "y_mm": 3540 },
+                { "x_mm": 5460, "y_mm": 3540 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            },
+            {
+              "id": "space_kitchen",
+              "type": "space",
+              "name": "Küche",
+              "category": "kitchen",
+              "boundary": [
+                { "x_mm": 150, "y_mm": 4860 },
+                { "x_mm": 5340, "y_mm": 4860 },
+                { "x_mm": 5340, "y_mm": 7350 },
+                { "x_mm": 150, "y_mm": 7350 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            },
+            {
+              "id": "space_bedroom",
+              "type": "space",
+              "name": "Schlafzimmer",
+              "category": "bedroom",
+              "boundary": [
+                { "x_mm": 5460, "y_mm": 4860 },
+                { "x_mm": 10350, "y_mm": 4860 },
+                { "x_mm": 10350, "y_mm": 7350 },
+                { "x_mm": 5460, "y_mm": 7350 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "revision": 0
+}

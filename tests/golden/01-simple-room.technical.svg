@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1400" height="1219.35" viewBox="-850 -4550 6200 5400" data-floorplan-schema="0.1" data-level-id="level_eg" data-project-id="fixture_01" data-quality="verified" data-unit="mm">
+  <title>Fixture 01 - Simple Room — Ground floor</title>
+  <desc>Deterministically rendered from a canonical floorplan model. Coordinates are millimetres; the Y axis is flipped for SVG. Quality level: verified.</desc>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="-850" y="-4550" width="6200" height="5400" fill="#ffffff"/>
+    <g data-layer="spaces">
+      <path d="M 150 -150 L 4350 -150 L 4350 -3550 L 150 -3550 Z" fill="#f4f4f4" data-type="space" data-id="space_room"/>
+    </g>
+    <g data-layer="walls">
+      <path d="M -150 150 L 1745 150 L 1745 -150 L 150 -150 Z M 2755 150 L 4650 150 L 4350 -150 L 2755 -150 Z M 4650 150 L 4650 -3850 L 4350 -3550 L 4350 -150 Z M 4650 -3850 L 3900 -3850 L 3900 -3550 L 4350 -3550 Z M 2700 -3850 L 1800 -3850 L 1800 -3550 L 2700 -3550 Z M 600 -3850 L -150 -3850 L 150 -3550 L 600 -3550 Z M -150 -3850 L -150 150 L 150 -150 L 150 -3550 Z" fill="#1f1f1f" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_001 wall_002 wall_003 wall_004"/>
+      <path d="M -150 150 L 1745 150 M 1745 150 L 1745 -150 M 1745 -150 L 150 -150 M 2755 150 L 4650 150 M 4350 -150 L 2755 -150 M 2755 -150 L 2755 150 M 4650 150 L 4650 -3850 M 4350 -3550 L 4350 -150 M 4650 -3850 L 3900 -3850 M 3900 -3850 L 3900 -3550 M 3900 -3550 L 4350 -3550 M 2700 -3850 L 1800 -3850 M 1800 -3850 L 1800 -3550 M 1800 -3550 L 2700 -3550 M 2700 -3550 L 2700 -3850 M 600 -3850 L -150 -3850 M 150 -3550 L 600 -3550 M 600 -3550 L 600 -3850 M -150 -3850 L -150 150 M 150 -150 L 150 -3550" fill="none" stroke="#000000" stroke-width="4.4286" stroke-linecap="square" data-type="wall-outline" data-ids="wall_001 wall_002 wall_003 wall_004"/>
+    </g>
+    <g data-layer="openings">
+      <g data-type="door" data-id="door_001">
+        <path d="M 1745 -150 L 1745 -1160 L 1785 -1160 L 1785 -150 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="4.4286" stroke-linejoin="miter"/>
+        <path d="M 1745 -1160 A 1010 1010 0 0 1 2755 -150" fill="none" stroke="#6f6f6f" stroke-width="3.1"/>
+      </g>
+      <g data-type="window" data-id="window_001">
+        <path d="M 3900 -3850 L 2700 -3850 L 2700 -3550 L 3900 -3550 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 3900 -3850 L 2700 -3850" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 3900 -3766 L 2700 -3766" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 3900 -3634 L 2700 -3634" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 3900 -3550 L 2700 -3550" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 3900 -3850 L 3900 -3550" fill="none" stroke="#000000" stroke-width="4.4286"/>
+        <path d="M 2700 -3850 L 2700 -3550" fill="none" stroke="#000000" stroke-width="4.4286"/>
+      </g>
+      <g data-type="window" data-id="window_002">
+        <path d="M 1800 -3850 L 600 -3850 L 600 -3550 L 1800 -3550 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 1800 -3850 L 600 -3850" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 1800 -3766 L 600 -3766" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 1800 -3634 L 600 -3634" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 1800 -3550 L 600 -3550" fill="none" stroke="#1f1f1f" stroke-width="3.9857"/>
+        <path d="M 1800 -3850 L 1800 -3550" fill="none" stroke="#000000" stroke-width="4.4286"/>
+        <path d="M 600 -3850 L 600 -3550" fill="none" stroke="#000000" stroke-width="4.4286"/>
+      </g>
+    </g>
+    <g data-layer="labels">
+      <g data-type="space-label" data-id="space_room">
+        <text x="2250" y="-1881" font-size="53.143" fill="#111111" text-anchor="middle" dominant-baseline="middle">Room</text>
+        <text x="2250" y="-1814.57" font-size="44.2858" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">14,28 m²</text>
+      </g>
+    </g>
+  </g>
+</svg>

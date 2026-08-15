@@ -1,0 +1,134 @@
+# Marketing theme — for exposés, presentations and websites.
+# Priority: a calm, friendly image. Soft room colours, no dimension lines,
+# generous typography. The geometry is byte-for-byte the same as in every other
+# theme; only its appearance changes.
+name: marketing
+description: Warm, soft presentation style for real estate exposés and slides.
+
+page:
+  background: "#ffffff"
+  margin_mm: 900
+  scale_mode: fit
+  target_width_px: 1600
+  font_family: "Georgia, 'Times New Roman', serif"
+
+walls:
+  default:
+    fill: "#3c3a37"
+    stroke: none
+    stroke_width_px: 0
+  by_classification:
+    exterior:
+      fill: "#3c3a37"
+    interior:
+      fill: "#57534e"
+    partition:
+      fill: "#78716c"
+    virtual:
+      fill: none
+      stroke: "#d6d3d1"
+      dash: "6 4"
+  by_state:
+    new:
+      fill: "#8c6f52"
+    planned:
+      fill: "#a8a29e"
+      dash: "8 4"
+    demolish:
+      fill: none
+      stroke: "#c1666b"
+      dash: "6 4"
+    unknown:
+      fill: "#a8a29e"
+
+openings:
+  door:
+    show_arc: true
+    show_leaf: true
+    arc_stroke: "#bcb5ac"
+    arc_stroke_width_px: 0.8
+    leaf_stroke: "#7a736b"
+    leaf_fill: "#ffffff"
+    leaf_thickness_mm: 45
+    reveal_stroke: "#a8a29e"
+  window:
+    style: frame
+    stroke: "#7a736b"
+    stroke_width_px: 1.1
+    fill: "#ffffff"
+    frame_ratio: 0.32
+    reveal_stroke: "#a8a29e"
+  passage:
+    style: none
+
+spaces:
+  show_fill: true
+  default:
+    fill: "#f6f3ef"
+  by_category:
+    living:
+      fill: "#f3ece2"
+    dining:
+      fill: "#f3ece2"
+    bedroom:
+      fill: "#eef0ea"
+    kitchen:
+      fill: "#f7f0e4"
+    bath:
+      fill: "#e8eef1"
+    wc:
+      fill: "#e8eef1"
+    hall:
+      fill: "#f7f5f2"
+    corridor:
+      fill: "#f7f5f2"
+    office:
+      fill: "#eeefe9"
+    storage:
+      fill: "#f0eeea"
+    technical:
+      fill: "#eceae6"
+    garage:
+      fill: "#e9e7e3"
+    stairwell:
+      fill: "#f2f0ec"
+    balcony:
+      fill: "#f4f7f2"
+    terrace:
+      fill: "#f4f7f2"
+    outdoor:
+      fill: "#f4f7f2"
+
+labels:
+  show_name: true
+  show_area: true
+  name_font_size_px: 15
+  area_font_size_px: 12
+  name_color: "#2f2b28"
+  area_color: "#8a827a"
+  name_weight: bold
+  name_transform: uppercase
+  letter_spacing_px: 0.8
+  line_gap_px: 6
+  area_decimals: 1
+  area_suffix: " m²"
+  decimal_separator: ","
+  min_label_area_m2: 1.2
+
+dimensions:
+  show: false
+
+stairs:
+  fill: "#f7f5f2"
+  stroke: "#7a736b"
+  step_stroke: "#b8b1a8"
+  show_arrow: false
+
+annotations:
+  show: false
+
+uncertainty:
+  mark_estimated: true
+  estimated_prefix: "ca. "
+  unknown_placeholder: "–"
+  estimated_color: "#8a827a"

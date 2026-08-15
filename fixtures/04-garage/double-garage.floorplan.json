@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.1",
+  "unit": "mm",
+  "project": {
+    "id": "fixture_04",
+    "name": "Fixture 04 - Double garage",
+    "description": "Double garage with two sectional garage doors, a side door and a separate technical room. Exercises the garage door type, a free standing column and openings that are much wider than a normal door.",
+    "quality": "scaled",
+    "defaults": {
+      "state": "new",
+      "provenance": "provided",
+      "wall_height_mm": 2600
+    }
+  },
+  "sources": [
+    {
+      "id": "src_design",
+      "kind": "drawing",
+      "description": "Synthetic test data. Not a real building."
+    }
+  ],
+  "buildings": [
+    {
+      "id": "building_garage",
+      "name": "Garage",
+      "levels": [
+        {
+          "id": "level_eg",
+          "name": "Erdgeschoss",
+          "index": 0,
+          "elevation_mm": 0,
+          "height_mm": 2600,
+          "walls": [
+            {
+              "id": "wall_ext_s",
+              "type": "wall",
+              "name": "Toransicht",
+              "start": { "x_mm": 0, "y_mm": 0 },
+              "end": { "x_mm": 7000, "y_mm": 0 },
+              "thickness_mm": 240,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_ext_e",
+              "type": "wall",
+              "start": { "x_mm": 7000, "y_mm": 0 },
+              "end": { "x_mm": 7000, "y_mm": 6500 },
+              "thickness_mm": 240,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_ext_n",
+              "type": "wall",
+              "start": { "x_mm": 7000, "y_mm": 6500 },
+              "end": { "x_mm": 0, "y_mm": 6500 },
+              "thickness_mm": 240,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_ext_w",
+              "type": "wall",
+              "start": { "x_mm": 0, "y_mm": 6500 },
+              "end": { "x_mm": 0, "y_mm": 0 },
+              "thickness_mm": 240,
+              "classification": "exterior"
+            },
+            {
+              "id": "wall_tech",
+              "type": "wall",
+              "name": "Wand Technikraum",
+              "start": { "x_mm": 0, "y_mm": 5000 },
+              "end": { "x_mm": 7000, "y_mm": 5000 },
+              "thickness_mm": 120,
+              "classification": "partition"
+            }
+          ],
+          "openings": [
+            {
+              "id": "door_gate_left",
+              "type": "door",
+              "name": "Garagentor links",
+              "host_wall_id": "wall_ext_s",
+              "offset_mm": 1800,
+              "width_mm": 2500,
+              "height_mm": 2125,
+              "door_type": "garage",
+              "connects_space_ids": ["space_garage"]
+            },
+            {
+              "id": "door_gate_right",
+              "type": "door",
+              "name": "Garagentor rechts",
+              "host_wall_id": "wall_ext_s",
+              "offset_mm": 5200,
+              "width_mm": 2500,
+              "height_mm": 2125,
+              "door_type": "garage",
+              "connects_space_ids": ["space_garage"]
+            },
+            {
+              "id": "door_side",
+              "type": "door",
+              "name": "Nebeneingang",
+              "host_wall_id": "wall_ext_w",
+              "offset_mm": 5000,
+              "width_mm": 910,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "connects_space_ids": ["space_garage"]
+            },
+            {
+              "id": "door_tech",
+              "type": "door",
+              "name": "Tür Technikraum",
+              "host_wall_id": "wall_tech",
+              "offset_mm": 3500,
+              "width_mm": 910,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "connects_space_ids": ["space_garage", "space_tech"]
+            },
+            {
+              "id": "window_tech",
+              "type": "window",
+              "host_wall_id": "wall_ext_n",
+              "offset_mm": 3500,
+              "width_mm": 800,
+              "height_mm": 600,
+              "sill_mm": 1600,
+              "window_type": "fixed"
+            }
+          ],
+          "spaces": [
+            {
+              "id": "space_garage",
+              "type": "space",
+              "name": "Doppelgarage",
+              "category": "garage",
+              "boundary": [
+                { "x_mm": 120, "y_mm": 120 },
+                { "x_mm": 6880, "y_mm": 120 },
+                { "x_mm": 6880, "y_mm": 4940 },
+                { "x_mm": 120, "y_mm": 4940 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            },
+            {
+              "id": "space_tech",
+              "type": "space",
+              "name": "Technikraum",
+              "category": "technical",
+              "boundary": [
+                { "x_mm": 120, "y_mm": 5060 },
+                { "x_mm": 6880, "y_mm": 5060 },
+                { "x_mm": 6880, "y_mm": 6380 },
+                { "x_mm": 120, "y_mm": 6380 }
+              ],
+              "provenance": "derived",
+              "verified": true
+            }
+          ],
+          "columns": [
+            {
+              "id": "column_001",
+              "type": "column",
+              "name": "Stütze Mittelachse",
+              "shape": "circle",
+              "center": { "x_mm": 3500, "y_mm": 2400 },
+              "diameter_mm": 300,
+              "height_mm": 2600,
+              "state": "new",
+              "provenance": "provided"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "revision": 0
+}

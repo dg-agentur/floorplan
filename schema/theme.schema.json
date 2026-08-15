@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://floorplan-platform.dev/schema/0.1/theme.schema.json",
+  "title": "Floorplan Rendering Theme",
+  "description": "Purely visual parameters. A theme must never change geometry. Fields ending in _px are display weights, fields ending in _mm are building dimensions and are therefore NOT part of any theme. See docs/adr/0012-themes.md.",
+  "type": "object",
+  "required": ["name"],
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9_-]{0,63}$" },
+    "extends": {
+      "description": "Name of a theme in the same directory (or a built-in) whose values are inherited and deep merged.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+    },
+    "description": { "type": "string", "maxLength": 1000 },
+    "page": { "$ref": "#/$defs/page" },
+    "walls": { "$ref": "#/$defs/walls" },
+    "openings": { "$ref": "#/$defs/openings" },
+    "spaces": { "$ref": "#/$defs/spaces" },
+    "labels": { "$ref": "#/$defs/labels" },
+    "dimensions": { "$ref": "#/$defs/dimensions" },
+    "stairs": { "$ref": "#/$defs/stairs" },
+    "columns": { "$ref": "#/$defs/shape_style" },
+    "shafts": { "$ref": "#/$defs/shape_style" },
+    "annotations": { "$ref": "#/$defs/annotations" },
+    "uncertainty": { "$ref": "#/$defs/uncertainty" }
+  },
+
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^(#[0-9a-fA-F]{3}|#[0-9a-fA-F]{6}|#[0-9a-fA-F]{8}|none|transparent)$"
+    },
+    "dash": {
+      "description": "SVG stroke-dasharray in px units, e.g. \"6 3\". Empty string means solid.",
+      "type": "string",
+      "pattern": "^$|^[0-9]+(\\.[0-9]+)?( [0-9]+(\\.[0-9]+)?)*$"
+    },
+    "width_px": { "type": "number", "minimum": 0, "maximum": 100 },
+    "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "background": { "$ref": "#/$defs/color" },
+        "margin_mm": {
+          "description": "Padding around the drawing bounding box, in model millimetres.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "scale_mode": { "enum": ["fit", "fixed"] },
+        "target_width_px": { "type": "number", "minimum": 32, "maximum": 20000 },
+        "px_per_mm": { "type": "number", "exclusiveMinimum": 0, "maximum": 10 },
+        "min_px_per_mm": { "type": "number", "exclusiveMinimum": 0, "maximum": 10 },
+        "max_px_per_mm": { "type": "number", "exclusiveMinimum": 0, "maximum": 10 },
+        "font_family": { "type": "string", "maxLength": 200 },
+        "title": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "show": { "type": "boolean" },
+            "font_size_px": { "$ref": "#/$defs/width_px" },
+            "color": { "$ref": "#/$defs/color" }
+          }
+        }
+      }
+    },
+
+    "surface_style": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fill": { "$ref": "#/$defs/color" },
+        "fill_opacity": { "$ref": "#/$defs/opacity" },
+        "stroke": { "$ref": "#/$defs/color" },
+        "stroke_width_px": { "$ref": "#/$defs/width_px" },
+        "dash": { "$ref": "#/$defs/dash" },
+        "hatch": { "enum": ["none", "diagonal", "cross", "dots"] },
+        "hatch_color": { "$ref": "#/$defs/color" },
+        "hatch_spacing_px": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 }
+      }
+    },
+
+    "shape_style": { "$ref": "#/$defs/surface_style" },
+
+    "walls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default": { "$ref": "#/$defs/surface_style" },
+        "by_classification": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "exterior": { "$ref": "#/$defs/surface_style" },
+            "interior": { "$ref": "#/$defs/surface_style" },
+            "partition": { "$ref": "#/$defs/surface_style" },
+            "structural": { "$ref": "#/$defs/surface_style" },
+            "retaining": { "$ref": "#/$defs/surface_style" },
+            "virtual": { "$ref": "#/$defs/surface_style" }
+          }
+        },
+        "by_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "existing": { "$ref": "#/$defs/surface_style" },
+            "planned": { "$ref": "#/$defs/surface_style" },
+            "new": { "$ref": "#/$defs/surface_style" },
+            "demolish": { "$ref": "#/$defs/surface_style" },
+            "unknown": { "$ref": "#/$defs/surface_style" }
+          }
+        }
+      }
+    },
+
+    "openings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "door": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "show_arc": { "type": "boolean" },
+            "show_leaf": { "type": "boolean" },
+            "arc_stroke": { "$ref": "#/$defs/color" },
+            "arc_stroke_width_px": { "$ref": "#/$defs/width_px" },
+            "arc_dash": { "$ref": "#/$defs/dash" },
+            "leaf_stroke": { "$ref": "#/$defs/color" },
+            "leaf_fill": { "$ref": "#/$defs/color" },
+            "leaf_stroke_width_px": { "$ref": "#/$defs/width_px" },
+            "leaf_thickness_mm": {
+              "description": "Drawn thickness of the door leaf symbol. This is symbol geometry, not a building dimension.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            },
+            "sliding_offset_mm": { "type": "integer", "minimum": 0, "maximum": 500 },
+            "reveal_stroke": { "$ref": "#/$defs/color" },
+            "reveal_stroke_width_px": { "$ref": "#/$defs/width_px" }
+          }
+        },
+        "window": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "style": { "enum": ["double_line", "frame", "single_line"] },
+            "stroke": { "$ref": "#/$defs/color" },
+            "stroke_width_px": { "$ref": "#/$defs/width_px" },
+            "fill": { "$ref": "#/$defs/color" },
+            "frame_ratio": {
+              "description": "Fraction of the wall thickness occupied by each frame line, 0..0.5.",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.5
+            },
+            "reveal_stroke": { "$ref": "#/$defs/color" },
+            "reveal_stroke_width_px": { "$ref": "#/$defs/width_px" }
+          }
+        },
+        "passage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "style": { "enum": ["none", "reveal", "threshold", "dashed"] },
+            "stroke": { "$ref": "#/$defs/color" },
+            "stroke_width_px": { "$ref": "#/$defs/width_px" },
+            "dash": { "$ref": "#/$defs/dash" }
+          }
+        },
+        "generic": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "style": { "enum": ["none", "reveal", "hatched"] },
+            "stroke": { "$ref": "#/$defs/color" },
+            "stroke_width_px": { "$ref": "#/$defs/width_px" },
+            "dash": { "$ref": "#/$defs/dash" }
+          }
+        },
+        "by_state": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "existing": { "$ref": "#/$defs/opening_state_style" },
+            "planned": { "$ref": "#/$defs/opening_state_style" },
+            "new": { "$ref": "#/$defs/opening_state_style" },
+            "demolish": { "$ref": "#/$defs/opening_state_style" },
+            "unknown": { "$ref": "#/$defs/opening_state_style" }
+          }
+        }
+      }
+    },
+
+    "opening_state_style": {
+      "description": "Partial override applied on top of the type specific opening style, selected by the construction state of the opening.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stroke": { "$ref": "#/$defs/color" },
+        "fill": { "$ref": "#/$defs/color" },
+        "leaf_stroke": { "$ref": "#/$defs/color" },
+        "leaf_fill": { "$ref": "#/$defs/color" },
+        "arc_stroke": { "$ref": "#/$defs/color" },
+        "dash": { "$ref": "#/$defs/dash" },
+        "arc_dash": { "$ref": "#/$defs/dash" },
+        "show_arc": { "type": "boolean" },
+        "show_leaf": { "type": "boolean" },
+        "opacity": { "$ref": "#/$defs/opacity" }
+      }
+    },
+
+    "spaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "show_fill": { "type": "boolean" },
+        "default": { "$ref": "#/$defs/surface_style" },
+        "by_category": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "living": { "$ref": "#/$defs/surface_style" },
+            "bedroom": { "$ref": "#/$defs/surface_style" },
+            "kitchen": { "$ref": "#/$defs/surface_style" },
+            "dining": { "$ref": "#/$defs/surface_style" },
+            "bath": { "$ref": "#/$defs/surface_style" },
+            "wc": { "$ref": "#/$defs/surface_style" },
+            "hall": { "$ref": "#/$defs/surface_style" },
+            "corridor": { "$ref": "#/$defs/surface_style" },
+            "office": { "$ref": "#/$defs/surface_style" },
+            "storage": { "$ref": "#/$defs/surface_style" },
+            "technical": { "$ref": "#/$defs/surface_style" },
+            "garage": { "$ref": "#/$defs/surface_style" },
+            "stairwell": { "$ref": "#/$defs/surface_style" },
+            "balcony": { "$ref": "#/$defs/surface_style" },
+            "terrace": { "$ref": "#/$defs/surface_style" },
+            "outdoor": { "$ref": "#/$defs/surface_style" },
+            "other": { "$ref": "#/$defs/surface_style" }
+          }
+        }
+      }
+    },
+
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "show_name": { "type": "boolean" },
+        "show_area": { "type": "boolean" },
+        "show_id": { "type": "boolean" },
+        "name_font_size_px": { "$ref": "#/$defs/width_px" },
+        "area_font_size_px": { "$ref": "#/$defs/width_px" },
+        "name_color": { "$ref": "#/$defs/color" },
+        "area_color": { "$ref": "#/$defs/color" },
+        "name_weight": { "enum": ["normal", "bold"] },
+        "name_transform": { "enum": ["none", "uppercase"] },
+        "letter_spacing_px": { "type": "number", "minimum": -5, "maximum": 20 },
+        "line_gap_px": { "$ref": "#/$defs/width_px" },
+        "area_decimals": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "area_suffix": { "type": "string", "maxLength": 16 },
+        "decimal_separator": { "type": "string", "maxLength": 1 },
+        "min_label_area_m2": { "type": "number", "minimum": 0, "maximum": 1000 }
+      }
+    },
+
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "show": { "type": "boolean" },
+        "stroke": { "$ref": "#/$defs/color" },
+        "stroke_width_px": { "$ref": "#/$defs/width_px" },
+        "font_size_px": { "$ref": "#/$defs/width_px" },
+        "text_color": { "$ref": "#/$defs/color" },
+        "tick_style": { "enum": ["arrow", "slash", "dot", "none"] },
+        "tick_size_px": { "$ref": "#/$defs/width_px" },
+        "extension_px": { "$ref": "#/$defs/width_px" },
+        "text_gap_px": { "$ref": "#/$defs/width_px" },
+        "format": { "enum": ["mm", "cm", "m"] },
+        "decimals": { "type": "integer", "minimum": 0, "maximum": 3 }
+      }
+    },
+
+    "stairs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fill": { "$ref": "#/$defs/color" },
+        "stroke": { "$ref": "#/$defs/color" },
+        "stroke_width_px": { "$ref": "#/$defs/width_px" },
+        "step_stroke": { "$ref": "#/$defs/color" },
+        "step_stroke_width_px": { "$ref": "#/$defs/width_px" },
+        "show_arrow": { "type": "boolean" },
+        "arrow_color": { "$ref": "#/$defs/color" },
+        "arrow_stroke_width_px": { "$ref": "#/$defs/width_px" }
+      }
+    },
+
+    "annotations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "show": { "type": "boolean" },
+        "font_size_px": { "$ref": "#/$defs/width_px" },
+        "color": { "$ref": "#/$defs/color" }
+      }
+    },
+
+    "uncertainty": {
+      "description": "How values whose provenance is estimated or unknown are marked in the drawing.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mark_estimated": { "type": "boolean" },
+        "estimated_prefix": { "type": "string", "maxLength": 8 },
+        "unknown_placeholder": { "type": "string", "maxLength": 16 },
+        "estimated_color": { "$ref": "#/$defs/color" }
+      }
+    }
+  }
+}

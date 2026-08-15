@@ -1,0 +1,237 @@
+{
+  "schema_version": "0.1",
+  "unit": "mm",
+  "source": {
+    "id": "src_expose",
+    "kind": "image",
+    "uri": "expose-plan.png",
+    "description": "Synthetic test data standing in for a low resolution floorplan image from a real estate exposé.",
+    "width_px": 1240,
+    "height_px": 880
+  },
+  "calibration": {
+    "scale_mm_per_px": 8.06,
+    "provenance": "estimated",
+    "confidence": 0.55,
+    "reference": "Assumed from the printed scale bar; the bar is blurred and could not be read reliably."
+  },
+  "interpreter": {
+    "name": "synthetic-fixture",
+    "version": "0.1",
+    "note": "Hand written stand-in for the output of a vision model. Any interpreter that emits this format can be substituted."
+  },
+  "observations": [
+    {
+      "id": "obs_wall_s",
+      "candidate_type": "wall",
+      "confidence": 0.94,
+      "geometry": { "kind": "segment", "start": { "x_mm": 0, "y_mm": 0 }, "end": { "x_mm": 7000, "y_mm": 0 } },
+      "attributes": { "thickness_mm": 300, "classification": "exterior" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [40, 820, 900, 858] },
+      "provenance_hint": "estimated",
+      "notes": "Strong continuous double line along the bottom edge."
+    },
+    {
+      "id": "obs_wall_e",
+      "candidate_type": "wall",
+      "confidence": 0.92,
+      "geometry": { "kind": "segment", "start": { "x_mm": 7000, "y_mm": 0 }, "end": { "x_mm": 7000, "y_mm": 5000 } },
+      "attributes": { "thickness_mm": 300, "classification": "exterior" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [862, 200, 900, 858] },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_wall_n_a",
+      "candidate_type": "wall",
+      "confidence": 0.9,
+      "geometry": { "kind": "segment", "start": { "x_mm": 7000, "y_mm": 5000 }, "end": { "x_mm": 3600, "y_mm": 5000 } },
+      "attributes": { "thickness_mm": 300, "classification": "exterior" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [485, 200, 900, 238] },
+      "provenance_hint": "estimated",
+      "notes": "Top wall, right half. Interrupted by a label in the image."
+    },
+    {
+      "id": "obs_wall_n_b",
+      "candidate_type": "wall",
+      "confidence": 0.88,
+      "geometry": { "kind": "segment", "start": { "x_mm": 3610, "y_mm": 5000 }, "end": { "x_mm": 0, "y_mm": 4990 } },
+      "attributes": { "thickness_mm": 300, "classification": "exterior" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [40, 200, 490, 240] },
+      "provenance_hint": "estimated",
+      "notes": "Top wall, left half. Traced slightly off; must merge with the right half."
+    },
+    {
+      "id": "obs_wall_w",
+      "candidate_type": "wall",
+      "confidence": 0.9,
+      "geometry": { "kind": "segment", "start": { "x_mm": 0, "y_mm": 5000 }, "end": { "x_mm": 0, "y_mm": 0 } },
+      "attributes": { "thickness_mm": 300, "classification": "exterior" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [40, 200, 78, 858] },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_wall_int_v",
+      "candidate_type": "wall",
+      "confidence": 0.82,
+      "geometry": { "kind": "segment", "start": { "x_mm": 3000, "y_mm": 0 }, "end": { "x_mm": 3000, "y_mm": 5000 } },
+      "attributes": { "classification": "partition" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [415, 200, 430, 858] },
+      "provenance_hint": "estimated",
+      "notes": "Thin single line: an interior wall, but the drawing does not show a thickness."
+    },
+    {
+      "id": "obs_wall_int_h",
+      "candidate_type": "wall",
+      "confidence": 0.79,
+      "geometry": { "kind": "segment", "start": { "x_mm": 3000, "y_mm": 2500 }, "end": { "x_mm": 7000, "y_mm": 2500 } },
+      "attributes": { "classification": "partition" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [415, 520, 900, 535] },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_wall_ghost",
+      "candidate_type": "wall",
+      "confidence": 0.28,
+      "geometry": { "kind": "segment", "start": { "x_mm": 1500, "y_mm": 2500 }, "end": { "x_mm": 3000, "y_mm": 2500 } },
+      "attributes": { "thickness_mm": 120 },
+      "provenance_hint": "estimated",
+      "notes": "Possibly a furniture edge rather than a wall. Low confidence on purpose."
+    },
+    {
+      "id": "obs_door_entrance",
+      "candidate_type": "door",
+      "confidence": 0.9,
+      "geometry": { "kind": "segment", "start": { "x_mm": 0, "y_mm": 1000 }, "end": { "x_mm": 0, "y_mm": 2000 } },
+      "attributes": { "width_mm": 1000, "door_type": "swing" },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [40, 590, 78, 720] },
+      "provenance_hint": "estimated",
+      "notes": "Swing arc clearly visible, but the hinge side cannot be determined from the image."
+    },
+    {
+      "id": "obs_door_interior",
+      "candidate_type": "door",
+      "confidence": 0.85,
+      "geometry": { "kind": "segment", "start": { "x_mm": 3000, "y_mm": 3300 }, "end": { "x_mm": 3000, "y_mm": 4200 } },
+      "attributes": { "width_mm": 900 },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [415, 300, 430, 420] },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_opening_unclear",
+      "candidate_type": "opening",
+      "confidence": 0.7,
+      "geometry": { "kind": "segment", "start": { "x_mm": 4400, "y_mm": 2500 }, "end": { "x_mm": 5600, "y_mm": 2500 } },
+      "attributes": { "width_mm": 1200 },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [590, 520, 740, 535] },
+      "provenance_hint": "estimated",
+      "notes": "A gap in the wall. Whether it is a door or an open passage cannot be told from the image, so it stays a generic opening."
+    },
+    {
+      "id": "obs_window_s",
+      "candidate_type": "window",
+      "confidence": 0.8,
+      "geometry": { "kind": "segment", "start": { "x_mm": 900, "y_mm": 0 }, "end": { "x_mm": 2100, "y_mm": 0 } },
+      "attributes": { "width_mm": 1200, "sill_mm": 900 },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [150, 820, 300, 858] },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_window_no_sill",
+      "candidate_type": "window",
+      "confidence": 0.81,
+      "geometry": { "kind": "segment", "start": { "x_mm": 4800, "y_mm": 5000 }, "end": { "x_mm": 6000, "y_mm": 5000 } },
+      "attributes": { "width_mm": 1200 },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [640, 200, 790, 238] },
+      "provenance_hint": "estimated",
+      "notes": "A window is visible but no sill height can be derived from a plan view. Expected to be rejected."
+    },
+    {
+      "id": "obs_opening_floating",
+      "candidate_type": "opening",
+      "confidence": 0.6,
+      "geometry": { "kind": "segment", "start": { "x_mm": 9500, "y_mm": 8000 }, "end": { "x_mm": 10500, "y_mm": 8000 } },
+      "attributes": { "width_mm": 1000 },
+      "provenance_hint": "estimated",
+      "notes": "Detected outside the building outline. Expected to be rejected."
+    },
+    {
+      "id": "obs_space_living",
+      "candidate_type": "space",
+      "confidence": 0.75,
+      "geometry": {
+        "kind": "polygon",
+        "points": [
+          { "x_mm": 150, "y_mm": 150 },
+          { "x_mm": 2940, "y_mm": 150 },
+          { "x_mm": 2940, "y_mm": 4850 },
+          { "x_mm": 150, "y_mm": 4850 }
+        ]
+      },
+      "attributes": { "name": "Wohnzimmer", "category": "living" },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_space_kitchen",
+      "candidate_type": "space",
+      "confidence": 0.72,
+      "geometry": {
+        "kind": "polygon",
+        "points": [
+          { "x_mm": 3060, "y_mm": 2560 },
+          { "x_mm": 6850, "y_mm": 2560 },
+          { "x_mm": 6850, "y_mm": 4850 },
+          { "x_mm": 3060, "y_mm": 4850 }
+        ]
+      },
+      "attributes": { "name": "Küche", "category": "kitchen" },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_space_bath",
+      "candidate_type": "space",
+      "confidence": 0.68,
+      "geometry": {
+        "kind": "polygon",
+        "points": [
+          { "x_mm": 3060, "y_mm": 150 },
+          { "x_mm": 6850, "y_mm": 150 },
+          { "x_mm": 6850, "y_mm": 2440 },
+          { "x_mm": 3060, "y_mm": 2440 }
+        ]
+      },
+      "attributes": { "name": "Bad", "category": "bath" },
+      "provenance_hint": "estimated"
+    },
+    {
+      "id": "obs_dim_width",
+      "candidate_type": "dimension",
+      "confidence": 0.86,
+      "geometry": { "kind": "segment", "start": { "x_mm": 0, "y_mm": -600 }, "end": { "x_mm": 7000, "y_mm": -600 } },
+      "attributes": { "text": "7,00", "value_mm": 7000 },
+      "source_ref": { "source_id": "src_expose", "bbox_px": [40, 862, 900, 878] },
+      "provenance_hint": "parsed",
+      "notes": "The only dimension string that could be read in the image."
+    },
+    {
+      "id": "obs_label_wc",
+      "candidate_type": "label",
+      "confidence": 0.65,
+      "geometry": { "kind": "point", "position": { "x_mm": 5000, "y_mm": 1200 } },
+      "attributes": { "text": "WC" },
+      "provenance_hint": "parsed"
+    },
+    {
+      "id": "obs_stair",
+      "candidate_type": "stair",
+      "confidence": 0.55,
+      "geometry": { "kind": "polygon", "points": [
+        { "x_mm": 5600, "y_mm": 3200 },
+        { "x_mm": 6600, "y_mm": 3200 },
+        { "x_mm": 6600, "y_mm": 4600 },
+        { "x_mm": 5600, "y_mm": 4600 }
+      ] },
+      "provenance_hint": "estimated",
+      "notes": "Something that could be a stair. Stairs are not reconciled in version 0.1; expected to be reported as unused."
+    }
+  ]
+}

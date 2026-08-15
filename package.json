@@ -1,0 +1,58 @@
+{
+  "name": "floorplan-platform",
+  "version": "0.1.0-alpha.1",
+  "description": "Vendor-neutral floorplan intelligence platform: deterministic canonical floorplan model, validation, operations, SVG rendering and an agent contract for LLM agents (Claude Code, Codex, ChatGPT Skills).",
+  "type": "module",
+  "license": "LicenseRef-Proprietary",
+  "private": true,
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "bin": {
+    "floorplan": "bin/floorplan.js"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./schema/*": "./schema/*"
+  },
+  "files": [
+    "bin",
+    "src",
+    "schema",
+    "themes",
+    "docs",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dg-agentur/floorplan.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dg-agentur/floorplan/issues"
+  },
+  "homepage": "https://github.com/dg-agentur/floorplan#readme",
+  "scripts": {
+    "floorplan": "node bin/floorplan.js",
+    "test": "node --test tests/",
+    "test:update-golden": "UPDATE_GOLDEN=1 node --test tests/",
+    "typecheck": "npm install --no-save --no-audit --no-fund typescript@5.6.3 @types/node && npx tsc --project tsconfig.json",
+    "test:conformance": "npm install --no-save --no-audit --no-fund ajv && node --test tests/schema-conformance-ajv.test.js",
+    "demo": "node scripts/mvp-demo.js",
+    "build:skill": "node scripts/build-skill.js --check",
+    "verify:skill": "node scripts/verify-skill.js",
+    "generate": "node scripts/generate-operations-schema.js && node scripts/sync-chatgpt-skill.js",
+    "check": "npm run test && npm run typecheck && npm run demo && npm run build:skill && npm run verify:skill"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "floorplan",
+    "grundriss",
+    "architecture",
+    "cad",
+    "svg",
+    "llm-agent",
+    "deterministic"
+  ]
+}

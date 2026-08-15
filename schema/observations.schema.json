@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://floorplan-platform.dev/schema/0.1/observations.schema.json",
+  "title": "Floorplan Observation Set",
+  "description": "Intermediate layer between an interpreting model (vision, LLM, parser) and the canonical floorplan. Observations are hypotheses with a source and a confidence, never facts. See docs/adr/0014-observation-layer.md.",
+  "type": "object",
+  "required": ["schema_version", "unit", "source", "observations"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "0.1" },
+    "unit": {
+      "description": "Observation geometry is expressed in millimetres of the target model, not in pixels.",
+      "const": "mm"
+    },
+    "source": { "$ref": "#/$defs/source" },
+    "calibration": { "$ref": "#/$defs/calibration" },
+    "interpreter": {
+      "description": "Which system produced these observations. Purely informational; the reconciler never branches on it.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "maxLength": 200 },
+        "version": { "type": "string", "maxLength": 64 },
+        "note": { "type": "string", "maxLength": 1000 }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/observation" }
+    },
+    "meta": { "type": "object" }
+  },
+
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$" },
+    "point": {
+      "type": "object",
+      "required": ["x_mm", "y_mm"],
+      "additionalProperties": false,
+      "properties": {
+        "x_mm": { "type": "integer", "minimum": -1000000000, "maximum": 1000000000 },
+        "y_mm": { "type": "integer", "minimum": -1000000000, "maximum": 1000000000 }
+      }
+    },
+
+    "source": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["image", "pdf", "scan", "drawing", "dxf", "text", "manual", "other"] },
+        "uri": { "type": "string", "maxLength": 1000 },
+        "page": { "type": "integer", "minimum": 1 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "width_px": { "type": "integer", "minimum": 1 },
+        "height_px": { "type": "integer", "minimum": 1 }
+      }
+    },
+
+    "calibration": {
+      "description": "How pixel space was converted to millimetres. Without a calibration of provenance 'measured', 'provided' or 'parsed', a reconstruction can never exceed quality level 'marketing'.",
+      "type": "object",
+      "required": ["scale_mm_per_px", "provenance"],
+      "additionalProperties": false,
+      "properties": {
+        "scale_mm_per_px": { "type": "number", "exclusiveMinimum": 0 },
+        "provenance": { "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "reference": {
+          "description": "What the scale was derived from, e.g. a dimension string in the drawing.",
+          "type": "string",
+          "maxLength": 500
+        },
+        "rotation_deg": {
+          "description": "Rotation applied to align the source with the model axes.",
+          "type": "number",
+          "minimum": -360,
+          "maximum": 360
+        }
+      }
+    },
+
+    "geometry": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["segment", "polygon", "point", "none"] },
+        "start": { "$ref": "#/$defs/point" },
+        "end": { "$ref": "#/$defs/point" },
+        "points": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/point" } },
+        "position": { "$ref": "#/$defs/point" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "segment" } }, "required": ["kind"] },
+          "then": { "required": ["start", "end"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "polygon" } }, "required": ["kind"] },
+          "then": { "required": ["points"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "point" } }, "required": ["kind"] },
+          "then": { "required": ["position"] }
+        }
+      ]
+    },
+
+    "observation": {
+      "type": "object",
+      "required": ["id", "candidate_type", "confidence", "geometry"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "candidate_type": {
+          "description": "What the interpreter believes this is. 'opening' is the honest answer when door vs. passage is unclear.",
+          "enum": ["wall", "opening", "door", "window", "passage", "space", "dimension", "label", "stair", "column", "unknown"]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "geometry": { "$ref": "#/$defs/geometry" },
+        "attributes": {
+          "description": "Type specific hints. Unknown keys are reported by the reconciler, never silently dropped.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "thickness_mm": { "type": "integer", "minimum": 1 },
+            "width_mm": { "type": "integer", "minimum": 1 },
+            "height_mm": { "type": "integer", "minimum": 1 },
+            "sill_mm": { "type": "integer", "minimum": 0 },
+            "classification": { "enum": ["exterior", "interior", "partition", "structural", "retaining", "virtual"] },
+            "name": { "type": "string", "maxLength": 200 },
+            "category": { "type": "string", "maxLength": 64 },
+            "text": { "type": "string", "maxLength": 500 },
+            "value_mm": { "type": "integer", "minimum": 0 },
+            "door_type": { "enum": ["swing", "double", "sliding", "pocket", "folding", "garage", "revolving"] },
+            "hinge": { "enum": ["left", "right"] },
+            "swing": { "enum": ["left", "right", "none"] },
+            "window_type": { "enum": ["fixed", "casement", "tilt_turn", "sliding", "french", "skylight"] },
+            "state": { "enum": ["existing", "planned", "new", "demolish", "unknown"] }
+          }
+        },
+        "source_ref": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source_id": { "$ref": "#/$defs/id" },
+            "page": { "type": "integer", "minimum": 1 },
+            "bbox_px": {
+              "description": "[x_min, y_min, x_max, y_max] in source pixel coordinates.",
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": { "type": "number" }
+            }
+          }
+        },
+        "provenance_hint": {
+          "description": "Where the numeric values came from. 'parsed' means a dimension text was read, 'estimated' means it was inferred from pixels.",
+          "enum": ["provided", "measured", "parsed", "derived", "estimated", "unknown"]
+        },
+        "notes": { "type": "string", "maxLength": 1000 },
+        "supersedes": {
+          "description": "IDs of earlier observations this one corrects. Observations are immutable; corrections are additive.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        }
+      }
+    }
+  }
+}

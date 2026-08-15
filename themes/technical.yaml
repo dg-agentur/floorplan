@@ -1,0 +1,111 @@
+# Technical theme — the drawing-office look.
+# Priority: readability of construction information. Dimensions visible,
+# neutral greys, thin precise lines, existing/demolish/new clearly distinguishable.
+name: technical
+description: Technical drawing style with dimensions, neutral greys and clear construction states.
+
+page:
+  background: "#ffffff"
+  margin_mm: 700
+  scale_mode: fit
+  target_width_px: 1400
+  font_family: "Helvetica, Arial, sans-serif"
+
+walls:
+  default:
+    fill: "#1f1f1f"
+    stroke: "#000000"
+    stroke_width_px: 1
+  by_classification:
+    exterior:
+      fill: "#1f1f1f"
+    interior:
+      fill: "#3d3d3d"
+    partition:
+      fill: "#616161"
+    structural:
+      fill: "#111111"
+    virtual:
+      fill: none
+      stroke: "#9e9e9e"
+      dash: "6 4"
+  by_state:
+    new:
+      fill: "#20558a"
+      stroke: "#123556"
+    planned:
+      fill: "#8f8f8f"
+      stroke: "#5a5a5a"
+      dash: "8 4"
+    demolish:
+      fill: none
+      stroke: "#b03a2e"
+      dash: "7 4"
+      stroke_width_px: 1
+    unknown:
+      fill: "#9a9a9a"
+      dash: "3 3"
+
+openings:
+  door:
+    show_arc: true
+    show_leaf: true
+    arc_stroke: "#6f6f6f"
+    arc_stroke_width_px: 0.7
+    leaf_stroke: "#1f1f1f"
+    leaf_fill: "#ffffff"
+    leaf_thickness_mm: 40
+  window:
+    style: double_line
+    stroke: "#1f1f1f"
+    stroke_width_px: 0.9
+    frame_ratio: 0.28
+  passage:
+    style: reveal
+    stroke: "#000000"
+    stroke_width_px: 1
+
+spaces:
+  show_fill: true
+  default:
+    fill: "#fbfbfb"
+    stroke: none
+
+labels:
+  show_name: true
+  show_area: true
+  show_id: false
+  name_font_size_px: 12
+  area_font_size_px: 10
+  name_color: "#111111"
+  area_color: "#4a4a4a"
+  area_decimals: 2
+  area_suffix: " m²"
+  decimal_separator: ","
+  min_label_area_m2: 0.5
+
+dimensions:
+  show: true
+  stroke: "#333333"
+  stroke_width_px: 0.7
+  font_size_px: 10
+  tick_style: slash
+  format: m
+  decimals: 2
+
+stairs:
+  fill: "#fdfdfd"
+  stroke: "#1f1f1f"
+  step_stroke: "#5a5a5a"
+  show_arrow: true
+
+annotations:
+  show: true
+  font_size_px: 10
+  color: "#333333"
+
+uncertainty:
+  mark_estimated: true
+  estimated_prefix: "ca. "
+  unknown_placeholder: "?"
+  estimated_color: "#8a6d3b"

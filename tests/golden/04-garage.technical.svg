@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1400" height="1318.98" viewBox="-820 -7320 8640 8140" data-floorplan-schema="0.1" data-level-id="level_eg" data-project-id="fixture_04" data-quality="scaled" data-unit="mm">
+  <title>Fixture 04 - Double garage — Erdgeschoss</title>
+  <desc>Deterministically rendered from a canonical floorplan model. Coordinates are millimetres; the Y axis is flipped for SVG. Quality level: scaled.</desc>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="-820" y="-7320" width="8640" height="8140" fill="#ffffff"/>
+    <g data-layer="spaces">
+      <path d="M 120 -120 L 6880 -120 L 6880 -4940 L 120 -4940 Z" fill="#ebebeb" data-type="space" data-id="space_garage"/>
+      <path d="M 120 -5060 L 6880 -5060 L 6880 -6380 L 120 -6380 Z" fill="#ededed" data-type="space" data-id="space_tech"/>
+    </g>
+    <g data-layer="walls">
+      <path d="M -120 120 L 550 120 L 550 -120 L 120 -120 Z M 3050 120 L 3950 120 L 3950 -120 L 3050 -120 Z M 6450 120 L 7120 120 L 6880 -120 L 6450 -120 Z M 7120 120 L 7120 -6620 L 6880 -6380 L 6880 -120 Z M 7120 -6620 L 3900 -6620 L 3900 -6380 L 6880 -6380 Z M 3100 -6620 L -120 -6620 L 120 -6380 L 3100 -6380 Z M -120 -6620 L -120 -1955 L 120 -1955 L 120 -6380 Z M -120 -1045 L -120 120 L 120 -120 L 120 -1045 Z M -120 -4940 L 3045 -4940 L 3045 -5060 L -120 -5060 Z M 3955 -4940 L 7120 -4940 L 7120 -5060 L 3955 -5060 Z" fill="#20558a" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_ext_s wall_ext_e wall_ext_n wall_ext_w wall_tech"/>
+      <path d="M -120 120 L 550 120 M 550 120 L 550 -120 M 550 -120 L 120 -120 M 3050 120 L 3950 120 M 3950 120 L 3950 -120 M 3950 -120 L 3050 -120 M 3050 -120 L 3050 120 M 6450 120 L 7120 120 M 6880 -120 L 6450 -120 M 6450 -120 L 6450 120 M 7120 120 L 7120 -6620 M 6880 -6380 L 6880 -5060 M 6880 -4940 L 6880 -120 M 7120 -6620 L 3900 -6620 M 3900 -6620 L 3900 -6380 M 3900 -6380 L 6880 -6380 M 3100 -6620 L -120 -6620 M 120 -6380 L 3100 -6380 M 3100 -6380 L 3100 -6620 M -120 -6620 L -120 -1955 M -120 -1955 L 120 -1955 M 120 -1955 L 120 -4940 M 120 -5060 L 120 -6380 M -120 -1045 L -120 120 M 120 -120 L 120 -1045 M 120 -1045 L -120 -1045 M 120 -4940 L 3045 -4940 M 3045 -4940 L 3045 -5060 M 3045 -5060 L 120 -5060 M -120 -5060 L -120 -4940 M 3955 -4940 L 6880 -4940 M 7120 -4940 L 7120 -5060 M 6880 -5060 L 3955 -5060 M 3955 -5060 L 3955 -4940" fill="none" stroke="#123556" stroke-width="6.1714" stroke-linecap="square" data-type="wall-outline" data-ids="wall_ext_s wall_ext_e wall_ext_n wall_ext_w wall_tech"/>
+    </g>
+    <g data-layer="columns">
+      <circle cx="3500" cy="-2400" r="150" fill="#2b2b2b" stroke="#000000" stroke-width="6.1714" data-type="column" data-id="column_001"/>
+    </g>
+    <g data-layer="openings">
+      <g data-type="door" data-id="door_gate_left">
+        <path d="M 550 60 L 3050 60 L 3050 -60 L 550 -60 Z" fill="#ffffff" stroke="#20558a" stroke-width="6.1714"/>
+      </g>
+      <g data-type="door" data-id="door_gate_right">
+        <path d="M 3950 60 L 6450 60 L 6450 -60 L 3950 -60 Z" fill="#ffffff" stroke="#20558a" stroke-width="6.1714"/>
+      </g>
+      <g data-type="window" data-id="window_tech">
+        <path d="M 3900 -6620 L 3100 -6620 L 3100 -6380 L 3900 -6380 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 3900 -6620 L 3100 -6620" fill="none" stroke="#20558a" stroke-width="5.5543"/>
+        <path d="M 3900 -6552.8 L 3100 -6552.8" fill="none" stroke="#20558a" stroke-width="5.5543"/>
+        <path d="M 3900 -6447.2 L 3100 -6447.2" fill="none" stroke="#20558a" stroke-width="5.5543"/>
+        <path d="M 3900 -6380 L 3100 -6380" fill="none" stroke="#20558a" stroke-width="5.5543"/>
+        <path d="M 3900 -6620 L 3900 -6380" fill="none" stroke="#000000" stroke-width="6.1714"/>
+        <path d="M 3100 -6620 L 3100 -6380" fill="none" stroke="#000000" stroke-width="6.1714"/>
+      </g>
+      <g data-type="door" data-id="door_side">
+        <path d="M 120 -1955 L 1030 -1955 L 1030 -1915 L 120 -1915 Z" fill="#ffffff" stroke="#20558a" stroke-width="6.1714" stroke-linejoin="miter"/>
+        <path d="M 1030 -1955 A 910 910 0 0 1 120 -1045" fill="none" stroke="#5b87b3" stroke-width="4.32"/>
+      </g>
+      <g data-type="door" data-id="door_tech">
+        <path d="M 3045 -5060 L 3045 -5970 L 3085 -5970 L 3085 -5060 Z" fill="#ffffff" stroke="#20558a" stroke-width="6.1714" stroke-linejoin="miter"/>
+        <path d="M 3045 -5970 A 910 910 0 0 1 3955 -5060" fill="none" stroke="#5b87b3" stroke-width="4.32"/>
+      </g>
+    </g>
+    <g data-layer="labels">
+      <g data-type="space-label" data-id="space_garage">
+        <text x="3500" y="-2573.2" font-size="74.0572" fill="#111111" text-anchor="middle" dominant-baseline="middle">Doppelgarage</text>
+        <text x="3500" y="-2480.63" font-size="61.7143" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">32,58 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_tech">
+        <text x="3500" y="-5763.2" font-size="74.0572" fill="#111111" text-anchor="middle" dominant-baseline="middle">Technikraum</text>
+        <text x="3500" y="-5670.63" font-size="61.7143" fill="#4a4a4a" text-anchor="middle" dominant-baseline="middle">8,92 m²</text>
+      </g>
+    </g>
+  </g>
+</svg>

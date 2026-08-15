@@ -1,0 +1,20 @@
+{
+  "//": "Type checking only. The runtime never needs a build step (see docs/adr/0001-language-and-runtime.md).",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "//include": "Tests are excluded on purpose: they are verified by running them, and strict null checks add noise to assertions without catching real defects.",
+  "include": ["src/**/*.js", "bin/**/*.js", "scripts/**/*.js"],
+  "exclude": ["node_modules"]
+}

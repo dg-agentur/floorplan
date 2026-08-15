@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1400" height="1150.58" viewBox="-850 -5850 8700 7150" data-floorplan-schema="0.1" data-level-id="level_eg" data-project-id="fixture_06" data-quality="marketing" data-unit="mm">
+  <title>Fixture 06 - Uncertain reconstruction — Reconstructed level</title>
+  <desc>Deterministically rendered from a canonical floorplan model. Coordinates are millimetres; the Y axis is flipped for SVG. Quality level: marketing.</desc>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="-850" y="-5850" width="8700" height="7150" fill="#ffffff"/>
+    <g data-layer="spaces">
+      <path d="M 150 -150 L 2940 -150 L 2940 -4850 L 150 -4850 Z" fill="#f4f4f4" data-type="space" data-id="space_001"/>
+      <path d="M 3060 -2560 L 6850 -2560 L 6850 -4850 L 3060 -4850 Z" fill="#f4f4f4" data-type="space" data-id="space_002"/>
+      <path d="M 3060 -150 L 6850 -150 L 6850 -2440 L 3060 -2440 Z" fill="#eef2f4" data-type="space" data-id="space_003"/>
+    </g>
+    <g data-layer="walls">
+      <path d="M -150 150 L 900 150 L 900 -150 L 150 -150 Z M 2100 150 L 7150 150 L 6850 -150 L 2100 -150 Z M 7150 150 L 7150 -5150 L 6850 -4850 L 6850 -150 Z M 7150 -5150 L -150 -5150 L 150 -4850 L 6850 -4850 Z M -150 -5150 L -150 -2000 L 150 -2000 L 150 -4850 Z M -150 -1000 L -150 150 L 150 -150 L 150 -1000 Z" fill="#1f1f1f" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_001 wall_002 wall_003 wall_004"/>
+      <path d="M -150 150 L 900 150 M 900 150 L 900 -150 M 900 -150 L 150 -150 M 2100 150 L 7150 150 M 6850 -150 L 2100 -150 M 2100 -150 L 2100 150 M 7150 150 L 7150 -5150 M 6850 -4850 L 6850 -150 M 7150 -5150 L -150 -5150 M 150 -4850 L 6850 -4850 M -150 -5150 L -150 -2000 M -150 -2000 L 150 -2000 M 150 -2000 L 150 -4850 M -150 -1000 L -150 150 M 150 -150 L 150 -1000 M 150 -1000 L -150 -1000" fill="none" stroke="#000000" stroke-width="6.2143" stroke-linecap="square" data-type="wall-outline" data-ids="wall_001 wall_002 wall_003 wall_004"/>
+      <path d="M 3060 150 L 3060 -3300 L 2940 -3300 L 2940 150 Z M 3060 -4200 L 3060 -5150 L 2940 -5150 L 2940 -4200 Z M 2940 -2440 L 4400 -2440 L 4400 -2560 L 2940 -2560 Z M 5600 -2440 L 7150 -2440 L 7150 -2560 L 5600 -2560 Z" fill="#616161" stroke="none" fill-rule="nonzero" data-type="wall-fill" data-ids="wall_005 wall_006"/>
+      <path d="M 3060 150 L 3060 -2440 M 3060 -2560 L 3060 -3300 M 3060 -3300 L 2940 -3300 M 2940 -3300 L 2940 150 M 2940 150 L 3060 150 M 3060 -4200 L 3060 -5150 M 3060 -5150 L 2940 -5150 M 2940 -5150 L 2940 -4200 M 2940 -4200 L 3060 -4200 M 3060 -2440 L 4400 -2440 M 4400 -2440 L 4400 -2560 M 4400 -2560 L 3060 -2560 M 2940 -2560 L 2940 -2440 M 5600 -2440 L 7150 -2440 M 7150 -2440 L 7150 -2560 M 7150 -2560 L 5600 -2560 M 5600 -2560 L 5600 -2440" fill="none" stroke="#000000" stroke-width="6.2143" stroke-linecap="square" data-type="wall-outline" data-ids="wall_005 wall_006"/>
+    </g>
+    <g data-layer="openings">
+      <g data-type="window" data-id="window_001">
+        <path d="M 900 150 L 2100 150 L 2100 -150 L 900 -150 Z" fill="#ffffff" stroke="none"/>
+        <path d="M 900 150 L 2100 150" fill="none" stroke="#1f1f1f" stroke-width="5.5928"/>
+        <path d="M 900 66 L 2100 66" fill="none" stroke="#1f1f1f" stroke-width="5.5928"/>
+        <path d="M 900 -66 L 2100 -66" fill="none" stroke="#1f1f1f" stroke-width="5.5928"/>
+        <path d="M 900 -150 L 2100 -150" fill="none" stroke="#1f1f1f" stroke-width="5.5928"/>
+        <path d="M 900 150 L 900 -150" fill="none" stroke="#000000" stroke-width="6.2143"/>
+        <path d="M 2100 150 L 2100 -150" fill="none" stroke="#000000" stroke-width="6.2143"/>
+      </g>
+      <g data-type="door" data-id="door_001">
+        <path d="M -75 -2000 L -75 -1000 L 75 -1000 L 75 -2000 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="6.2143"/>
+      </g>
+      <g data-type="door" data-id="door_002">
+        <path d="M 3030 -3300 L 3030 -4200 L 2970 -4200 L 2970 -3300 Z" fill="#ffffff" stroke="#1f1f1f" stroke-width="6.2143"/>
+      </g>
+      <g data-type="generic_opening" data-id="opening_001">
+        <path d="M 4400 -2440 L 5600 -2440 L 5600 -2560 L 4400 -2560 Z" fill="none" stroke="#8a8a8a" stroke-width="6.2143" stroke-dasharray="24.8571 18.6428"/>
+      </g>
+    </g>
+    <g data-layer="dimensions">
+      <g data-type="dimension" data-id="dim_001">
+        <path d="M 0 600 L 7000 600 M -10.99 610.99 L 10.99 589.01 M 6989.01 610.99 L 7010.99 589.01" fill="none" stroke="#333333" stroke-width="4.35"/>
+        <text x="3500" y="556.5" font-size="62.1427" fill="#333333" text-anchor="middle" dominant-baseline="middle">7,00</text>
+      </g>
+    </g>
+    <g data-layer="labels">
+      <g data-type="space-label" data-id="space_001">
+        <text x="1545" y="-2543.5" font-size="74.5712" fill="#111111" text-anchor="middle" dominant-baseline="middle">Wohnzimmer</text>
+        <text x="1545" y="-2450.29" font-size="62.1427" fill="#8a6d3b" text-anchor="middle" dominant-baseline="middle">ca. 13,11 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_002">
+        <text x="4955" y="-3748.5" font-size="74.5712" fill="#111111" text-anchor="middle" dominant-baseline="middle">Küche</text>
+        <text x="4955" y="-3655.29" font-size="62.1427" fill="#8a6d3b" text-anchor="middle" dominant-baseline="middle">ca. 8,68 m²</text>
+      </g>
+      <g data-type="space-label" data-id="space_003">
+        <text x="4955" y="-1338.5" font-size="74.5712" fill="#111111" text-anchor="middle" dominant-baseline="middle">Bad</text>
+        <text x="4955" y="-1245.29" font-size="62.1427" fill="#8a6d3b" text-anchor="middle" dominant-baseline="middle">ca. 8,68 m²</text>
+      </g>
+    </g>
+    <g data-layer="annotations">
+      <text x="5000" y="-1200" font-size="62.1427" fill="#333333" text-anchor="middle" dominant-baseline="middle" data-type="annotation" data-id="note_001">WC</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,222 @@
+{
+  "schema_version": "0.1",
+  "unit": "mm",
+  "project": {
+    "id": "fixture_05",
+    "name": "Fixture 05 - Renovation",
+    "description": "One model, four construction states. The existing partition and its door are marked for demolition, a new partition and a planned door take their place. Spaces describe the PLANNED layout; the state field on the building elements records what happens to the fabric. This is why existing stock and planning never need two separate documents.",
+    "quality": "scaled",
+    "defaults": {
+      "state": "existing",
+      "provenance": "measured",
+      "wall_height_mm": 2500
+    }
+  },
+  "sources": [
+    {
+      "id": "src_survey",
+      "kind": "survey",
+      "description": "Synthetic test data. Not a real building. Stands for an on-site survey of the existing structure."
+    },
+    {
+      "id": "src_design",
+      "kind": "drawing",
+      "description": "Synthetic test data. Stands for the design drawing of the planned change."
+    }
+  ],
+  "buildings": [
+    {
+      "id": "building_main",
+      "name": "Wohnhaus",
+      "levels": [
+        {
+          "id": "level_eg",
+          "name": "Erdgeschoss",
+          "index": 0,
+          "elevation_mm": 0,
+          "height_mm": 2500,
+          "walls": [
+            {
+              "id": "wall_ext_s",
+              "type": "wall",
+              "start": { "x_mm": 0, "y_mm": 0 },
+              "end": { "x_mm": 8000, "y_mm": 0 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_ext_e",
+              "type": "wall",
+              "start": { "x_mm": 8000, "y_mm": 0 },
+              "end": { "x_mm": 8000, "y_mm": 6000 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_ext_n",
+              "type": "wall",
+              "start": { "x_mm": 8000, "y_mm": 6000 },
+              "end": { "x_mm": 0, "y_mm": 6000 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_ext_w",
+              "type": "wall",
+              "start": { "x_mm": 0, "y_mm": 6000 },
+              "end": { "x_mm": 0, "y_mm": 0 },
+              "thickness_mm": 300,
+              "classification": "exterior",
+              "state": "existing",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_old_partition",
+              "type": "wall",
+              "name": "Bestandswand, Abbruch",
+              "start": { "x_mm": 4000, "y_mm": 0 },
+              "end": { "x_mm": 4000, "y_mm": 6000 },
+              "thickness_mm": 120,
+              "classification": "partition",
+              "state": "demolish",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "wall_new_partition",
+              "type": "wall",
+              "name": "Neue Trennwand",
+              "start": { "x_mm": 5200, "y_mm": 0 },
+              "end": { "x_mm": 5200, "y_mm": 6000 },
+              "thickness_mm": 120,
+              "classification": "partition",
+              "state": "new",
+              "provenance": "provided",
+              "source_id": "src_design"
+            }
+          ],
+          "openings": [
+            {
+              "id": "door_entrance",
+              "type": "door",
+              "name": "Hauseingang",
+              "host_wall_id": "wall_ext_w",
+              "offset_mm": 3000,
+              "width_mm": 1010,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "state": "existing",
+              "source_id": "src_survey",
+              "connects_space_ids": ["space_left"]
+            },
+            {
+              "id": "door_old",
+              "type": "door",
+              "name": "Bestandstür, entfällt",
+              "host_wall_id": "wall_old_partition",
+              "offset_mm": 3000,
+              "width_mm": 810,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "state": "demolish",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "door_planned",
+              "type": "door",
+              "name": "Geplante Tür",
+              "host_wall_id": "wall_new_partition",
+              "offset_mm": 3000,
+              "width_mm": 910,
+              "height_mm": 2010,
+              "door_type": "swing",
+              "hinge": "left",
+              "swing": "left",
+              "state": "planned",
+              "provenance": "provided",
+              "source_id": "src_design",
+              "connects_space_ids": ["space_left", "space_right"]
+            },
+            {
+              "id": "window_south",
+              "type": "window",
+              "host_wall_id": "wall_ext_s",
+              "offset_mm": 2200,
+              "width_mm": 1600,
+              "height_mm": 1400,
+              "sill_mm": 900,
+              "window_type": "tilt_turn",
+              "state": "existing",
+              "source_id": "src_survey"
+            },
+            {
+              "id": "window_north",
+              "type": "window",
+              "host_wall_id": "wall_ext_n",
+              "offset_mm": 1800,
+              "width_mm": 1200,
+              "height_mm": 1400,
+              "sill_mm": 900,
+              "window_type": "tilt_turn",
+              "state": "existing",
+              "source_id": "src_survey"
+            }
+          ],
+          "spaces": [
+            {
+              "id": "space_left",
+              "type": "space",
+              "name": "Wohnen (geplant)",
+              "category": "living",
+              "boundary": [
+                { "x_mm": 150, "y_mm": 150 },
+                { "x_mm": 5140, "y_mm": 150 },
+                { "x_mm": 5140, "y_mm": 5850 },
+                { "x_mm": 150, "y_mm": 5850 }
+              ],
+              "state": "planned",
+              "provenance": "derived",
+              "verified": true,
+              "source_id": "src_design"
+            },
+            {
+              "id": "space_right",
+              "type": "space",
+              "name": "Arbeiten (geplant)",
+              "category": "office",
+              "boundary": [
+                { "x_mm": 5260, "y_mm": 150 },
+                { "x_mm": 7850, "y_mm": 150 },
+                { "x_mm": 7850, "y_mm": 5850 },
+                { "x_mm": 5260, "y_mm": 5850 }
+              ],
+              "state": "planned",
+              "provenance": "derived",
+              "verified": true,
+              "source_id": "src_design"
+            }
+          ],
+          "annotations": [
+            {
+              "id": "note_states",
+              "type": "annotation",
+              "position": { "x_mm": 4000, "y_mm": -1200 },
+              "text": "Bestand / Abbruch / Neubau in einem Modell",
+              "annotation_kind": "note"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "revision": 0
+}

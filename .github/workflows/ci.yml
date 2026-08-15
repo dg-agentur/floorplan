@@ -1,0 +1,250 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# The core has no dependencies and no build step (docs/adr/0001-language-and-runtime.md),
+# so most jobs need nothing but a checkout and a Node runtime.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION_FLOOR: '20.10.0'
+
+jobs:
+  test:
+    name: Tests (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Run without installing anything
+        run: |
+          test ! -d node_modules || (echo "node_modules must not be committed" && exit 1)
+          node bin/floorplan.js --version
+
+      - name: Test suite
+        run: npm test
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm run typecheck
+
+  schema-conformance:
+    name: Schema validator versus Ajv
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # The custom validator exists because the core has no dependencies.
+      # This job is the safety net behind that decision (ADR 0011).
+      - run: npm run test:conformance
+
+  demo:
+    name: MVP demonstration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run the end to end demonstration
+        run: npm run demo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mvp-demo-output
+          path: out/
+          retention-days: 14
+
+  golden:
+    name: Golden snapshots and determinism
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Golden SVGs must not drift
+        run: |
+          npm test
+          git diff --exit-code -- tests/golden \
+            || (echo "::error::Golden SVGs changed. Review the diff, then commit it with UPDATE_GOLDEN=1 npm test." && exit 1)
+
+      - name: Rendering must be byte identical across runs
+        run: |
+          for theme in technical marketing minimal; do
+            node bin/floorplan.js render fixtures/03-house-ground-floor/house-ground-floor.floorplan.json \
+              --theme "$theme" --output "/tmp/a-$theme.svg" > /dev/null
+            node bin/floorplan.js render fixtures/03-house-ground-floor/house-ground-floor.floorplan.json \
+              --theme "$theme" --output "/tmp/b-$theme.svg" > /dev/null
+            cmp "/tmp/a-$theme.svg" "/tmp/b-$theme.svg" \
+              || (echo "::error::Renderer is not deterministic for theme $theme" && exit 1)
+          done
+
+  fixtures:
+    name: Fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Every fixture validates through the CLI
+        run: |
+          status=0
+          for file in fixtures/*/*.floorplan.json; do
+            node bin/floorplan.js validate "$file" --quiet || status=1
+          done
+          exit $status
+
+      - name: Every fixture renders in every theme
+        run: |
+          for file in fixtures/*/*.floorplan.json; do
+            for theme in technical marketing minimal; do
+              node bin/floorplan.js render "$file" --theme "$theme" --output /tmp/render.svg > /dev/null \
+                || (echo "::error::$file failed to render with theme $theme" && exit 1)
+            done
+          done
+
+      - name: The reference operation batch still applies
+        run: |
+          node bin/floorplan.js apply \
+            fixtures/03-house-ground-floor/house-ground-floor.floorplan.json \
+            fixtures/03-house-ground-floor/renovation.ops.json --dry-run --json > /dev/null
+
+      - name: The reconstruction fixture is reproducible from its observations
+        run: |
+          node bin/floorplan.js reconcile \
+            fixtures/06-uncertain-reconstruction/expose-plan.observations.json \
+            --default-thickness-mm 120 --snap-mm 10 \
+            --project-name "Fixture 06 - Uncertain reconstruction" \
+            --project-id fixture_06 \
+            --output /tmp/reconstruction.floorplan.json > /dev/null
+          cmp /tmp/reconstruction.floorplan.json \
+            fixtures/06-uncertain-reconstruction/reconstruction.floorplan.json \
+            || (echo "::error::The reconstruction fixture is stale. Regenerate it, see tests/fixtures.test.js." && exit 1)
+
+  generated:
+    name: Generated files are in sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Both files are generated from code. A stale copy would publish a contract
+      # that the implementation does not honour.
+      - run: npm run generate
+      - name: Nothing may differ after regeneration
+        run: |
+          git diff --exit-code \
+            || (echo "::error::Run 'npm run generate' and commit the result." && exit 1)
+
+  skill:
+    name: ChatGPT skill package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build reproducibly
+        run: npm run build:skill
+
+      - name: Verify the bundle is self-contained and faithful
+        run: npm run verify:skill
+
+      - name: The bundle must run with no network access
+        run: |
+          # Prove the claim rather than assert it: unpack outside the checkout and
+          # run with an empty environment.
+          mkdir -p /tmp/skill-net && unzip -q dist/chatgpt/skill.zip -d /tmp/skill-net
+          cd /tmp
+          env -i "$(command -v node)" /tmp/skill-net/floorplan/scripts/floorplan.js --version
+          env -i "$(command -v node)" /tmp/skill-net/floorplan/scripts/floorplan.js validate \
+            /tmp/skill-net/floorplan/core/fixtures/02-apartment/apartment.floorplan.json --quiet
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chatgpt-skill
+          path: |
+            dist/chatgpt/skill.zip
+            dist/chatgpt/skill.zip.sha256
+          retention-days: 30
+
+  hygiene:
+    name: Repository hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: No private or project specific source material is tracked
+        run: |
+          # Real floorplans carry names, addresses and parcel numbers. They are for
+          # local comparison only (ROADMAP.md) and must never enter the repository.
+          if git ls-files | grep -Ei '(^|/)(beispiele|examples-private)/|\.private\.' ; then
+            echo "::error::Private reference material is tracked. Remove it and check .gitignore."
+            exit 1
+          fi
+          if git ls-files | grep -Ei '\.(pdf|jpg|jpeg|png|heic|tif|tiff)$' ; then
+            echo "::error::Binary source material is tracked. Floorplan sources must stay out of the repository."
+            exit 1
+          fi
+
+      - name: No dependencies crept in
+        run: |
+          node -e "
+            const p = require('./package.json');
+            const deps = Object.keys(p.dependencies ?? {});
+            const dev = Object.keys(p.devDependencies ?? {});
+            if (deps.length || dev.length) {
+              console.error('::error::The core must stay dependency free (ADR 0001). Found: ' + [...deps, ...dev].join(', '));
+              process.exit(1);
+            }
+          "
+          test ! -f package-lock.json || (echo "::error::A lockfile implies dependencies exist." && exit 1)
+
+      - name: The version is consistent everywhere
+        run: |
+          version=$(node -p "require('./package.json').version")
+          cli=$(node bin/floorplan.js --version)
+          test "$version" = "$cli" || (echo "::error::CLI reports $cli, package.json says $version" && exit 1)
+          grep -q "version: $version" integrations/chatgpt/floorplan/SKILL.md \
+            || (echo "::error::SKILL.md frontmatter does not declare $version" && exit 1)
+          grep -q "\[$version\]" CHANGELOG.md \
+            || (echo "::error::CHANGELOG.md has no entry for $version" && exit 1)
+
+      - name: Minimum Node version is honoured
+        run: |
+          required=$(node -p "require('./package.json').engines.node")
+          echo "engines.node = $required"
+          test "$required" = ">=${NODE_VERSION_FLOOR}" \
+            || (echo "::error::engines.node drifted from the documented floor" && exit 1)

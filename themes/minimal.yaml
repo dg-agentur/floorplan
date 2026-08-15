@@ -1,0 +1,88 @@
+# Minimal theme — pure line drawing.
+# Priority: least possible ink. Nothing but outlines and room names. Useful as a
+# base for further processing and as a control: if a plan reads correctly here,
+# its geometry is sound.
+name: minimal
+description: Outline only. No fills, no areas, no dimensions.
+
+page:
+  background: "#ffffff"
+  margin_mm: 400
+  scale_mode: fit
+  target_width_px: 1000
+  font_family: "Helvetica, Arial, sans-serif"
+
+walls:
+  default:
+    fill: none
+    stroke: "#000000"
+    stroke_width_px: 1.2
+  by_classification:
+    exterior:
+      stroke: "#000000"
+    interior:
+      stroke: "#000000"
+    partition:
+      stroke: "#000000"
+    virtual:
+      stroke: "#000000"
+      dash: "4 4"
+  by_state:
+    new:
+      stroke: "#000000"
+    planned:
+      stroke: "#000000"
+      dash: "6 3"
+    demolish:
+      stroke: "#000000"
+      dash: "3 3"
+    unknown:
+      stroke: "#000000"
+      dash: "2 2"
+
+openings:
+  door:
+    show_arc: true
+    show_leaf: true
+    arc_stroke: "#000000"
+    arc_stroke_width_px: 0.6
+    leaf_stroke: "#000000"
+    leaf_fill: none
+    leaf_thickness_mm: 30
+  window:
+    style: single_line
+    stroke: "#000000"
+    stroke_width_px: 0.8
+  passage:
+    style: reveal
+    stroke: "#000000"
+    stroke_width_px: 0.8
+
+spaces:
+  show_fill: false
+  default:
+    fill: none
+    stroke: none
+
+labels:
+  show_name: true
+  show_area: false
+  name_font_size_px: 11
+  name_color: "#000000"
+  min_label_area_m2: 1
+
+dimensions:
+  show: false
+
+stairs:
+  fill: none
+  stroke: "#000000"
+  step_stroke: "#000000"
+  show_arrow: true
+  arrow_color: "#000000"
+
+annotations:
+  show: false
+
+uncertainty:
+  mark_estimated: false

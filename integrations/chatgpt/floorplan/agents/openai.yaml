@@ -1,0 +1,103 @@
+# OpenAI agent definition for the floorplan skill.
+#
+# This file describes HOW to call the platform. It contains no geometry rules,
+# no validation rules and no dimension policy — those live in
+# references/agent-contract.md, which is shared with every other platform.
+
+name: floorplan
+version: "0.1.0"
+description: >-
+  Deterministic floorplan core. Creates, reconstructs, understands, modifies, validates and
+  renders architectural floorplans through a structured JSON model instead of generated images.
+
+instructions_file: ../SKILL.md
+contract_file: ../references/agent-contract.md
+
+runtime:
+  kind: node
+  min_version: "20.10.0"
+  install: none          # zero dependencies, no build step — see references/setup.md
+  entrypoint: ../scripts/floorplan.js
+
+capabilities:
+  - id: read
+    summary: Read structure, areas, openings, connectivity and provenance of a floorplan.
+    commands:
+      - "inspect <file> --section all --json"
+      - "graph <file> --json"
+      - "graph <file> --from <space_id> --to <space_id> --json"
+
+  - id: discover
+    summary: Learn the change vocabulary and the validation rules at runtime.
+    commands:
+      - "ops list --json"
+      - "ops describe <operation> --json"
+      - "ops template <operation>"
+      - "rules --json"
+      - "schema floorplan"
+    note: >-
+      Always prefer these over recalling names from memory. The vocabulary is authoritative
+      here and may grow between versions.
+
+  - id: create
+    summary: Start a new floorplan from explicit dimensions.
+    commands:
+      - "create <out> --template empty --name <text>"
+      - "create <out> --template room --width-mm <n> --depth-mm <n>"
+    note: >-
+      The room template REQUIRES clear inner dimensions. It refuses to run without them,
+      because dimensions are never guessed.
+
+  - id: modify
+    summary: Apply a validated batch of operations, atomically and reversibly.
+    commands:
+      - "apply <file> <ops.json> --dry-run --json"
+      - "apply <file> <ops.json> --output <new-file> --json"
+      - "undo <file> --steps <n> --output <new-file> --json"
+    note: >-
+      apply never writes in place unless --in-place is given, validates automatically, and
+      refuses to write a file that contains errors.
+
+  - id: validate
+    summary: Check a document, optionally against a stricter quality level.
+    commands:
+      - "validate <file> --json"
+      - "validate <file> --quality verified --json"
+    exit_codes:
+      0: valid
+      1: at least one ERROR
+      2: usage error — reread the usage instead of retrying
+
+  - id: render
+    summary: Produce deterministic SVG. No image generation is involved.
+    commands:
+      - "render <file> --theme technical --output <file.svg> --json"
+      - "render <file> --theme marketing --output <file.svg> --json"
+      - "theme list --json"
+      - "theme validate <path>"
+
+  - id: reconstruct
+    summary: Turn observations from an image, scan or PDF into a floorplan.
+    commands:
+      - "schema observations"
+      - "reconcile <observations.json> --output <floorplan.json> --json"
+    note: >-
+      Write *.observations.json first — hypotheses with confidence and a source reference.
+      Never write a floorplan directly from an image. Read the reconciliation report and relay
+      the rejected observations and the assumptions to the user.
+
+output_contract:
+  json_flag: "--json"
+  envelope_success: '{ "ok": true, "command": "...", "data": {}, "diagnostics": [] }'
+  envelope_error: '{ "ok": false, "command": "...", "error": { "code": "...", "message": "...", "hint": "..." } }'
+  determinism: >-
+    No timestamps and no random identifiers in any output unless --stamp is passed explicitly.
+    Identical input produces byte identical output.
+
+hard_rules:
+  - Never invent a dimension. Ask, mark it estimated with a confidence, or omit the field.
+  - Never declare an estimate as measured or provided.
+  - Never edit an SVG. Re-render it.
+  - Never claim a quality level. Prove it with `validate --quality <level>`.
+  - Never make statements about building regulations, escape routes, minimum room sizes,
+    fire safety or living-area calculation. The system does not check any of that.
