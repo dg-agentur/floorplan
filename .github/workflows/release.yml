@@ -59,50 +59,58 @@ jobs:
       - name: Build the release artefacts
         run: npm run build:skill
 
-      - name: Extract the changelog section
-        id: notes
+      - name: Assemble the release notes
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          version="${{ steps.version.outputs.version }}"
-          {
-            echo 'body<<RELEASE_NOTES_EOF'
-            awk -v v="$version" '
-              $0 ~ "^## \\[" v "\\]" { found = 1; next }
-              found && /^## \[/      { exit }
-              found                  { print }
-            ' CHANGELOG.md
-            echo ''
-            echo '---'
-            echo ''
-            echo '### Artefakte'
-            echo ''
-            echo '| Datei | Inhalt |'
-            echo '|---|---|'
-            echo '| `skill.zip` | Self-contained ChatGPT-Skill inklusive Floorplan-Core. Node >= 20, kein `npm install`, kein Git-Clone, kein Netz. |'
-            echo '| `skill.zip.sha256` | Prüfsumme des Archivs. |'
-            echo ''
-            echo '```bash'
-            echo 'sha256sum -c skill.zip.sha256'
-            echo 'unzip -q skill.zip -d ./skill'
-            echo 'node ./skill/floorplan/scripts/floorplan.js --version'
-            echo '```'
-            echo ''
-            echo "SHA-256: \`$(cut -d' ' -f1 dist/chatgpt/skill.zip.sha256)\`"
-            echo 'RELEASE_NOTES_EOF'
-          } >> "$GITHUB_OUTPUT"
+          # Written to a file, never passed through the shell as a string: the notes
+          # contain backticks and would otherwise be treated as command substitution.
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" { found = 1; next }
+            found && /^## \[/      { exit }
+            found                  { print }
+          ' CHANGELOG.md > release-notes.md
+
+          checksum=$(cut -d' ' -f1 dist/chatgpt/skill.zip.sha256)
+          cat >> release-notes.md <<NOTES
+
+          ---
+
+          ### Artefakte
+
+          | Datei | Inhalt |
+          |---|---|
+          | \`skill.zip\` | Self-contained ChatGPT-Skill inklusive Floorplan-Core. Node >= 20, kein \`npm install\`, kein Git-Clone, kein Netz. |
+          | \`skill.zip.sha256\` | Prüfsumme des Archivs. |
+
+          \`\`\`bash
+          sha256sum -c skill.zip.sha256
+          unzip -q skill.zip -d ./skill
+          node ./skill/floorplan/scripts/floorplan.js --version
+          \`\`\`
+
+          SHA-256: \`$checksum\`
+          NOTES
+
+          # Strip the leading indentation the heredoc carries for readability.
+          sed -i 's/^          //' release-notes.md
+          test -s release-notes.md || (echo "::error::Release notes are empty — is there a CHANGELOG entry for $VERSION?" && exit 1)
 
       - name: Publish the release
         env:
           GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          PRERELEASE: ${{ steps.version.outputs.prerelease }}
         run: |
           flags=""
-          if [ "${{ steps.version.outputs.prerelease }}" = "true" ]; then
+          if [ "$PRERELEASE" = "true" ]; then
             flags="--prerelease"
           fi
-          gh release create "${{ steps.version.outputs.tag }}" \
+          gh release create "$TAG" \
             dist/chatgpt/skill.zip \
             dist/chatgpt/skill.zip.sha256 \
-            --title "${{ steps.version.outputs.tag }}" \
-            --notes "${{ steps.notes.outputs.body }}" \
+            --title "$TAG" \
+            --notes-file release-notes.md \
             $flags
 
       - uses: actions/upload-artifact@v4
