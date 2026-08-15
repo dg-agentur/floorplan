@@ -21,7 +21,7 @@ npm run demo                                # End-to-End-Demonstration nach ./ou
 npx tsc --project tsconfig.json             # Typprüfung (optional, checkJs über JSDoc)
 node scripts/generate-operations-schema.js  # nach Änderungen an der Operations-Registry
 node scripts/sync-chatgpt-skill.js          # nach Änderungen an docs/, die das Skill spiegelt
-UPDATE_GOLDEN=1 npm test                    # Golden-SVGs bewusst neu erzeugen
+npm run test:update-golden                  # Golden-SVGs bewusst neu erzeugen
 npm install --no-save ajv && npm test       # zusätzlich gegen Ajv konformitätsprüfen
 ```
 

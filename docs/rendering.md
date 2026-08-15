@@ -124,7 +124,7 @@ Fixture in jedem Theme und hält Golden-Snapshots in `tests/golden/`.
 Eine Golden-Datei bewusst neu erzeugen:
 
 ```bash
-UPDATE_GOLDEN=1 npm test
+npm run test:update-golden
 git diff tests/golden/     # und die Änderung tatsächlich ansehen
 ```
 

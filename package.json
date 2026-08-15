@@ -34,8 +34,8 @@
   "homepage": "https://github.com/dg-agentur/floorplan#readme",
   "scripts": {
     "floorplan": "node bin/floorplan.js",
-    "test": "node --test tests/",
-    "test:update-golden": "UPDATE_GOLDEN=1 node --test tests/",
+    "test": "node scripts/run-tests.js",
+    "test:update-golden": "UPDATE_GOLDEN=1 node scripts/run-tests.js",
     "typecheck": "npm install --no-save --no-audit --no-fund typescript@5.6.3 @types/node && npx tsc --project tsconfig.json",
     "test:conformance": "npm install --no-save --no-audit --no-fund ajv && node --test tests/schema-conformance-ajv.test.js",
     "demo": "node scripts/mvp-demo.js",

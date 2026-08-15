@@ -2,7 +2,7 @@
  * Renderer tests including golden SVG snapshots.
  *
  * Regenerate the golden files deliberately with:
- *   UPDATE_GOLDEN=1 node --test tests/
+ *   npm run test:update-golden
  * A changed golden file must be reviewed like any other change to output.
  */
 
@@ -45,7 +45,7 @@ function assertGolden(name, content) {
         break;
       }
     }
-    assert.fail(`golden mismatch for ${name}\n${detail}\nRun UPDATE_GOLDEN=1 npm test after reviewing the change.`);
+    assert.fail(`golden mismatch for ${name}\n${detail}\nRun "npm run test:update-golden" after reviewing the change.`);
   }
 }
 
